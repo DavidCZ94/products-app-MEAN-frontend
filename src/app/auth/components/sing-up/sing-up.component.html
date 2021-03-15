@@ -1,0 +1,107 @@
+<div class="row mx-auto my-5">
+  <div class="col-md-4 mx-auto">
+    <div class="card">
+      <div class="card-reader mx-auto mt-3">
+        <h4>Sign-up</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="saveUser($event)">
+          <div class="form-group my-2">
+            <input
+              formControlName="name"
+              type="text"
+              name="name"
+              class="form-control"
+              placeholder="name"
+              autofocus
+              required
+            />
+          </div>
+          <div class="form-group my-2">
+            <input
+              [class.is-invalid]="form.controls.email.invalid"
+              formControlName="email"
+              type="text"
+              name="email"
+              class="form-control"
+              placeholder="email"
+              required
+            />
+          </div>
+          <div class="form-group my-2">
+            <input
+              [class.is-invalid]="isPasswordValid"
+              formControlName="password"
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="Password"
+              required
+            />
+            <div id="validationServer03Feedback" class="invalid-feedback">
+              The password must contain at least one letter, one number and six
+              characters.
+            </div>
+          </div>
+          <div class="form-group my-2">
+            <input
+              [class.is-invalid]="!isPasswordConfirmationValid"
+              formControlName="passwordConfirmation"
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="Confirm your password"
+              required
+            />
+            <div id="validationServer03Feedback" class="invalid-feedback">
+              This field must match the password.
+            </div>
+          </div>
+          <button
+            [disabled]="form.invalid || !isPasswordConfirmationValid"
+            (click)="initModal(confirmationModal)"
+            type="submit"
+            class="btn btn-primary w-100"
+            name="submitButton"
+          >
+            Sign-up
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal -->
+  <div
+    #confirmationModal
+    class="modal fade"
+    id="confirmationModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="confirmationModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div id="modal-body" class="modal-body fs-3">
+          <div class="d-flex justify-content-center mt-4">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
