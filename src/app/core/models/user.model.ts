@@ -3,6 +3,9 @@ export interface User {
     name: string,
     email: string,
     phone?: number,
-    password: string
-    passwordConfirmation?: string
+    password: string,
+    passwordConfirmation?: string,
+    rememberMe?: boolean,
+    authdata?: string,
+    isAdmin?: boolean
 }

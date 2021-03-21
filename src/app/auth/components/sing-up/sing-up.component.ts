@@ -30,7 +30,7 @@ export class SingUpComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', Validators.minLength(6)],
+      name: ['', Validators.minLength(2)],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -94,8 +94,18 @@ export class SingUpComponent implements OnInit {
   }
 
   initModal(element): void {
-    this.modalDirect = new Bootstrap.Modal(element, {});
+    this.modalDirect = new Bootstrap.Modal(element, {
+      'data-bs-backdrop': true,
+      'data-bs-keyboard': false,
+      'data-bs-focus': true,
+    });
+    console.log(this.modalDirect);
+    
     this.modalDirect.show();
+  }
+
+  redirectToSignIn(){
+    this.router.navigate(['sing-in']);
   }
 
 }

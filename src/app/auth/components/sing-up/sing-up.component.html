@@ -67,6 +67,12 @@
             Sign-up
           </button>
         </form>
+        <hr>
+        <div>
+          <button (click)="redirectToSignIn()" type="button" class="btn btn-secondary w-100" name="signInButton">
+            Sign-in
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -77,8 +83,6 @@
     #confirmationModal
     class="modal fade"
     id="confirmationModal"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
     tabindex="-1"
     aria-labelledby="confirmationModalLabel"
     aria-hidden="true"

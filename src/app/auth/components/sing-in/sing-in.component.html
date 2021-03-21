@@ -1,34 +1,93 @@
 <div class="row mx-auto my-5">
-    <div class="col-md-4 mx-auto">
-        <div class="card">
-            <div class="card-reader mx-auto mt-3">
-                <h4>
-                    Sign-in
-                </h4>
-            </div>
-            <div class="card-body">
-                <form [formGroup]="form" (ngSubmit)="saveUser($event)">
-                    <div class="form-group my-2">
-                        <input formControlName="email" type="text" name="email" class="form-control" placeholder="email" autofocus required>
-                    </div>
-                    <div class="form-group my-2">
-                        <input formControlName="password" type="password" name="password" class="form-control" placeholder="Password" required >
-                    </div>
-                    <div class="form-group form-check form-switch my-2">
-                        <input formControlName="rememberMe" class="form-check-input" type="checkbox" id="rememberMeSwitch">
-                        <label class="form-check-label" for="rememberMeSwitch">Rememberme</label>                                          
-                    </div>
-                    <button [disabled]="form.invalid" type="submit" class="btn btn-primary w-100" name="submitButton">
-                        Sign-in
-                    </button>
-                </form>
-                <hr>
-                <div>
-                    <button (click)="signUp()" type="button" class="btn btn-secondary w-100" name="signUpButton">
-                        Sign-up
-                    </button>
-                </div>
-            </div>
+  <div class="col-md-4 mx-auto">
+    <div class="card">
+      <div class="card-reader mx-auto mt-3">
+        <h4>Sign-in</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="formAction($event)">
+          <div class="form-group my-2">
+            <input
+              formControlName="email"
+              type="text"
+              name="email"
+              class="form-control"
+              placeholder="email"
+              autofocus
+              required
+            />
+          </div>
+          <div class="form-group my-2">
+            <input
+              formControlName="password"
+              type="password"
+              name="password"
+              class="form-control"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div class="form-group form-check form-switch my-2">
+            <input
+              formControlName="rememberMe"
+              class="form-check-input"
+              type="checkbox"
+              id="rememberMeSwitch"
+              checked=""
+            />
+            <label class="form-check-label" for="rememberMeSwitch"
+              >Rememberme</label
+            >
+          </div>
+          <button
+            [disabled]="form.invalid"
+            (click)="initModal(confirmationModal)"
+            type="submit"
+            class="btn btn-primary w-100"
+            name="submitButton"
+          >
+            Sign-in
+          </button>
+        </form>
+        <hr />
+        <div>
+          <button
+            (click)="redirectToSignUp()"
+            type="button"
+            class="btn btn-secondary w-100"
+            name="signUpButton"
+          >
+            Sign-up
+          </button>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  #confirmationModal
+  class="modal fade"
+  id="confirmationModal"
+  tabindex="-1"
+  aria-labelledby="confirmationModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="modal-body" class="modal-body fs-3">
+        <div class="d-flex justify-content-center mt-4">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

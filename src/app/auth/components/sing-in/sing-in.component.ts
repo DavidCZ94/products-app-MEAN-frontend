@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Bootstrap from 'bootstrap/dist/js/bootstrap';
+
+import { User } from '../../../core/models/user.model';
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-sing-in',
@@ -8,20 +12,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./sing-in.component.scss']
 })
 export class SingInComponent implements OnInit {
-  
-  user: Object;
+  user: User;
   form: FormGroup;
   
+  modalDirect: Bootstrap.Modal;
+  @ViewChild('confirmationModal') input;
+
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService,
     private router: Router
-    ) { }
+    ) {
+      this.buildForm();
+    }
 
-  ngOnInit(): void {
-    this.buildForm();
-  }
-
-  private buildForm(){
+    ngOnInit(): void {}
+    
+    private buildForm(){
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -29,21 +36,52 @@ export class SingInComponent implements OnInit {
     })
   }
 
-  saveUser(event: Event){
+  formAction(event: Event){
     event.preventDefault();
     if(this.form.valid){
+      if (this.form.value.rememberMe === null) {
+        this.form.value.rememberMe = false ;
+      } 
+      
       this.user = this.form.value;
-      this.singUp(this.user);
+      
+      this.singIn(this.user);
     }else{
       alert('Please fill out the form with valid information.');
     }
-    console.log(this.user);
   }
 
-  singUp(user){
+  singIn(user: User){
+    this.authService.signIn(user).subscribe(
+      (res) => {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.querySelector('.modal-body').textContent = 'Successful sign-up';
+        confirmationModal.addEventListener('hide.bs.modal', (event) => {
+          this.router.navigate(['admin/home']);
+        });
+      },
+      (err) => {
+        // Add action for unauthorized user
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
+        localStorage.removeItem('currentUser');
+      }
+    );
   }
 
-  signUp(){
+  initModal(element): void{
+    this.modalDirect = new Bootstrap.Modal(element,{
+      'data-bs-backdrop': true,
+      'data-bs-keyboard': false,
+      'data-bs-focus': true,
+    });
+    console.log(this.modalDirect)
+    
+    this.modalDirect.show();
+    
+  }
+
+  redirectToSignUp(){
     this.router.navigate(['sing-up']);
   }
 
