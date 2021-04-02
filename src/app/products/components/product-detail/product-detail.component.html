@@ -1,0 +1,38 @@
+<div class="card mb-3 mt-4 mx-auto w-sm-100 w-75">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <ul class="list-group">
+        <!-- ID -->
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">ID:</div>
+          </div>
+          <span class="badge bg-primary rounded-pill">{{ product._id }}</span>
+        </li>
+        <!-- Name -->
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Name:</div>
+          </div>
+          <span class="badge bg-primary rounded-pill">{{ product.name }}</span>
+        </li>
+        <!-- Sale Price -->
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">Sale Price:</div>
+          </div>
+          <span class="badge bg-primary rounded-pill">{{ product.sale_price | currency }}</span>
+        </li>
+        <!-- SKU -->
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">SKU:</div>
+          </div>
+          <span class="badge bg-primary rounded-pill">{{ product.sku }}</span>
+        </li>
+      </ul>
+    </div>
+    <button (click)="goToProductsTable()" class="btn btn-primary">
+      Back
+    </button>
+  </div>

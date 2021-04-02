@@ -11,14 +11,18 @@ const routes: Routes = [
     canActivate: [ AuthGuard ],
     children: [
       {
+        path: 'home',
+        loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+      },
+      {
+        path: 'products',
+        loadChildren: () => import('./products/products.module').then((m) => m.ProductsModule),
+      },
+      {
         path: '',
         redirectTo: '/home',
         pathMatch: 'full',
-      },
-      {
-        path: 'home',
-        loadChildren: () =>import('./home/home.module').then((m) => m.HomeModule),
-      },
+      }
     ],
   },
   {

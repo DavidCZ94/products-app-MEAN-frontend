@@ -23,7 +23,12 @@ export class SingInComponent implements OnInit {
     private authService: AuthService,
     private router: Router
     ) {
-      this.buildForm();
+      if( !(JSON.parse(localStorage.getItem('currentUser')) === null ) ){
+        console.log(this.user === null);
+        this.redirectToAdminHome();
+      }else{
+        this.buildForm();
+      }
     }
 
     ngOnInit(): void {}
@@ -57,7 +62,7 @@ export class SingInComponent implements OnInit {
         const confirmationModal = document.getElementById('confirmationModal');
         confirmationModal.querySelector('.modal-body').textContent = 'Successful sign-up';
         confirmationModal.addEventListener('hide.bs.modal', (event) => {
-          this.router.navigate(['admin/home']);
+          this.redirectToAdminHome();
         });
       },
       (err) => {
@@ -75,10 +80,12 @@ export class SingInComponent implements OnInit {
       'data-bs-keyboard': false,
       'data-bs-focus': true,
     });
-    console.log(this.modalDirect)
-    
     this.modalDirect.show();
     
+  }
+
+  redirectToAdminHome(){
+    this.router.navigate(['admin/home']);
   }
 
   redirectToSignUp(){

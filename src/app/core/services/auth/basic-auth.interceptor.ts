@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class BasicAuthInterceptor implements HttpInterceptor{
-    constructor(private authenticationService: AuthService){}
+    constructor(
+        private authenticationService: AuthService,
+        ){}
     // add authorization header with basic auth credentials if available
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{   
         let currentUser = this.authenticationService.currentUserValue;

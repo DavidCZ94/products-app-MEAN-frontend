@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../../models/user.model';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { User } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +15,9 @@ export class AuthService {
 
   private url: string = 'http://localhost:8000';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    ) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser'))
     );
@@ -33,6 +37,7 @@ export class AuthService {
     .pipe(map(user => {
       // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
       user.authdata = window.btoa(userEmail + ':' + userPassword);
+      
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.currentUserSubject.next(user);
       return user;

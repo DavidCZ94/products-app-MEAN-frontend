@@ -1,0 +1,30 @@
+<div #sideNav class="sidenav py-1">
+  <div class="list-group">
+    
+    <div class="card text-white bg-secondary w-100 text-center" style="width: 18rem;">
+      <div class="card-header">
+        <h5 class="card-title">{{user.name}}</h5>
+      </div>
+      <div class="card-body py-0">
+        <fa-icon class="fa-2x user-icon" [icon]="faUser"></fa-icon>
+      </div>
+    </div>
+    
+    <hr class="my-0">
+    
+    <a class="w-75 p-3" routerLink="/admin/home" routerLinkActive="active">Home</a>
+    <a class="w-75 p-3" routerLink="/admin/products" routerLinkActive="active" >Products</a> 
+    <a class="w-75 p-3" href="#">Clients</a>
+    <a class="w-75 p-3" href="#">Contact</a>
+  </div>
+  <div class="container">
+    <button (click)="logOut(sideNav, main)" class="btn btn-outline-secondary w-25">
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+    </button>
+  </div>
+</div>
+
+<div #main id="main">
+  <app-navbar (sideBarAction)="sideBarToggler(sideNav, main)"></app-navbar>
+  <router-outlet></router-outlet>
+</div>

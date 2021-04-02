@@ -9,6 +9,7 @@ import { AuthGuard } from './auth.guard';
 import { SharedModule } from './shared/shared.module';
 import { BasicAuthInterceptor } from './core/services/auth/basic-auth.interceptor';
 import { LayoutComponent } from './layout/layout.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LayoutComponent } from './layout/layout.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   providers: [
     {
