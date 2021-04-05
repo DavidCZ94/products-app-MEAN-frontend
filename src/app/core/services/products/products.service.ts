@@ -30,11 +30,15 @@ export class ProductsService {
   }
 
   getProducts(){
-    return this.httpClient.get<any>(this.url + '/products', { headers: this.getHeaders() });
+    return this.httpClient.get<any>(this.url + '/products', { headers: this.getHeaders() } );
   }
 
   getProduct(id: string){
-    return this.httpClient.get<any>(this.url + `/products/${id}`, { headers: this.getHeaders()});
+    return this.httpClient.get<any>(this.url + `/products/${id}`, { headers: this.getHeaders() } );
+  }
+
+  createProduct(product: Product){
+    return this.httpClient.post<any>(this.url + '/products', product, { headers: this.getHeaders() } );
   }
 
 }
