@@ -41,4 +41,12 @@ export class ProductsService {
     return this.httpClient.post<any>(this.url + '/products', product, { headers: this.getHeaders() } );
   }
 
+  deleteProduct(id: string){
+    return this.httpClient.delete<any>(this.url + `/products/${id}`, { headers: this.getHeaders() });
+  }
+
+  updateProduct(product: Product, id: string){
+    return this.httpClient.put<any>(this.url + `/products/${id}`, product, { headers: this.getHeaders() });
+  }
+
 }

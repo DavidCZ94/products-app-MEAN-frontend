@@ -33,6 +33,7 @@ export class ProductsComponent implements OnInit {
         },
         (err) =>{
           console.log(err);
+          alert('There was a problem trying to connect to connect to the server. Try again.');
         }
       );
   }
