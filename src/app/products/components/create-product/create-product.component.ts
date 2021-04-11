@@ -39,7 +39,7 @@ export class CreateProductComponent implements OnInit {
       position: ['', [Validators.required]],
       sale_price: ['', [Validators.required]],
       cost_price: ['', [Validators.required]],
-      tags: ['']
+      tags: ['', [Validators.required]]
     })
   }
 
