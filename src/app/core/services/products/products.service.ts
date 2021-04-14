@@ -16,7 +16,7 @@ export class ProductsService {
   constructor(
     private httpClient: HttpClient,
     ) {
-      this.getProducts();
+      //this.getProducts();
     }
 
   getHeaders(){
@@ -29,8 +29,8 @@ export class ProductsService {
     return httpHeaders;
   }
 
-  getProducts(){
-    return this.httpClient.get<any>(this.url + '/products', { headers: this.getHeaders() } );
+  getProducts(filter){
+    return this.httpClient.get<any>(this.url + `/products${filter}`, { headers: this.getHeaders() } );
   }
 
   getProduct(id: string){

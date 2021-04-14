@@ -8,33 +8,49 @@ import { Product } from '../../../core/models/product.model';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-
   products: Product[] = [];
-
   faPlus = faPlus;
+  productsFounded: String = '';
+  search: String = '';
 
   constructor(
-      private productsService: ProductsService, 
-      private router: Router
-      ) {}
+    private productsService: ProductsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getProducts();
+    this.loadProducts();
   }
 
-  getProducts(){
-    this.productsService.getProducts()
-      .subscribe(
-        (res) => {
-          this.products = res.data;
-        },
-        (err) =>{
-          console.log(err);
-          alert('There was a problem trying to connect to connect to the server. Try again.');
-        }
-      );
+/*   getProducts() {
+    this.productsService.getProducts().subscribe(
+      (res) => {
+        this.products = res.data;
+      },
+      (err) => {
+        console.log(err);
+        alert(
+          'There was a problem trying to connect to connect to the server. Try again.'
+        );
+      }
+    );
+  } */
+
+  loadProducts() {
+    const filter =
+      typeof this.search == 'string' && this.search.length > 0
+        ? `?searchBy=${this.search}`
+        : ''
+    this.productsService.getProducts(filter).subscribe(
+      (res) => {
+        this.products = res.data;
+      },
+      (err) => {
+        alert('An error occurred connecting to the database.');
+      }
+    )
   }
 }
