@@ -47,7 +47,7 @@ export class CreateProductComponent implements OnInit {
     event.preventDefault();
     if(this.form.valid){
       this.product = {
-        'sku' : this.form.value.string,
+        'sku' : this.form.value.sku,
         'name' : this.form.value.name,
         'brand' : this.form.value.brand,
         'class' : this.form.value.class,
@@ -56,7 +56,7 @@ export class CreateProductComponent implements OnInit {
         'position' : this.form.value.position,
         'sale_price' : this.form.value.sale_price, 
         'cost_price' : this.form.value.cost_price,
-        'tags' : this.form.value.tags.split(' '),
+        'tags' : this.form.value.tags.split(','),
       };
       this.createProduct(this.product);
     }

@@ -70,7 +70,7 @@ export class ProductDetailComponent implements OnInit {
     .subscribe(
       (res) => {
         const confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.querySelector('.modal-body').textContent = 'Product added successfully';
+        confirmationModal.querySelector('.modal-body').textContent = 'Product saved successfully';
         confirmationModal.addEventListener('hide.bs.modal', (event) => {
           this.goToProductsTable();
         });
@@ -107,14 +107,30 @@ export class ProductDetailComponent implements OnInit {
       position: [ this.product.position, [Validators.required]],
       sale_price: [ this.product.sale_price, [Validators.required]],
       cost_price: [ this.product.cost_price, [Validators.required]],
-      tags: [ this.product.tags]
+      tags: [ this.product.tags, [Validators.required]]
     });
   }
 
-  formAction(event: Event){
+  saveProduct(event: Event){
     event.preventDefault();
     if( this.form.valid ){
-      this.product = this.form.value;
+      this.product = {
+        '_id' : this.form.value._id,
+        'sku' : this.form.value.sku,
+        'name' : this.form.value.name,
+        'brand' : this.form.value.brand,
+        'class' : this.form.value.class,
+        'distributor' : this.form.value.distributor,
+        'stock' : this.form.value.stock,
+        'position' : this.form.value.position,
+        'sale_price' : this.form.value.sale_price, 
+        'cost_price' : this.form.value.cost_price,
+      };
+      if (Array.isArray(this.form.value.tags)){
+        this.product.tags = this.form.value.tags;
+      }else{
+        this.product.tags = this.form.value.tags.split(',');
+      }
       this.updateProduct(this.product);
     }
   }
