@@ -1,6 +1,7 @@
 {
   "name": "elysian-frontend",
   "version": "0.0.0",
+  "author": "david940103@gmail.com",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

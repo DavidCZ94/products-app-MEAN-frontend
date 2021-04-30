@@ -69,6 +69,9 @@ export class SingInComponent implements OnInit {
         // Add action for unauthorized user
         const confirmationModal = document.getElementById('confirmationModal');
         confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
+        confirmationModal.addEventListener('hide.bs.modal', (event) => {
+          window.location.reload();
+        });
         localStorage.removeItem('currentUser');
       }
     );
@@ -90,6 +93,10 @@ export class SingInComponent implements OnInit {
 
   redirectToSignUp(){
     this.router.navigate(['sing-up']);
+  }
+
+  redirectToSignIn(){
+    this.router.navigate(['sing-in']);
   }
 
 }

@@ -51,7 +51,7 @@ export class ProductDetailComponent implements OnInit {
       (err) => {
         console.log(err);
       }
-    ); 
+    );
   }
 
   updateProduct(product: Product){
@@ -81,7 +81,7 @@ export class ProductDetailComponent implements OnInit {
       });
   }
 
-  deleteProduct(id: string){ 
+  deleteProduct(id: string){
     this.productService.deleteProduct(id)
     .subscribe(
       (res)=>{
@@ -123,7 +123,7 @@ export class ProductDetailComponent implements OnInit {
         'distributor' : this.form.value.distributor,
         'stock' : this.form.value.stock,
         'position' : this.form.value.position,
-        'sale_price' : this.form.value.sale_price, 
+        'sale_price' : this.form.value.sale_price,
         'cost_price' : this.form.value.cost_price,
       };
       if (Array.isArray(this.form.value.tags)){

@@ -1,0 +1,52 @@
+<div class="container pt-4">
+    <!-- Add product buttom -->
+    <div class="position-relative py-3">
+      <button
+        routerLink="createUser"
+        class="btn btn-light position-absolute top-50 start-50 translate-middle"
+      >
+        <fa-icon [icon]="faPlus"></fa-icon>
+        Add
+      </button>
+    </div>
+    <!-- Search bar -->
+    <div class="d-flex my-4">
+        <input 
+            class="form-control me-2"
+            type="search"
+            placeholder="Search User"
+            aria-label="Search"
+            (keyup)="loadUsers()"
+            [(ngModel)]="search"
+            />
+    </div>
+    <!-- Table products -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                  <td class="list-group">
+                    <a class="list-group-item list-group-item-action"
+                    [routerLink]="['./', user._id]" >
+                        {{ user.name }}
+                    </a>  
+                  </td>
+                  <td>{{ user.email }}</td>
+                  <td *ngIf="user.isAdmin; else isClient">
+                    Admin
+                  </td>
+                  <ng-template #isClient>
+                      <td>
+                        Client
+                      </td>
+                  </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</div>

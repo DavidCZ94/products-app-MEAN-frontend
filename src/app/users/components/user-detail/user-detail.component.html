@@ -1,0 +1,142 @@
+<div class="card mb-3 mt-4 mx-auto w-sm-100 w-75" *ngIf="user">
+  <!-- <img src="..." class="card-img-top" alt="..."> -->
+
+  <!-- Edit form -->
+  <div class="card-reader mx-auto mt-3">
+    <h4>{{ user.name }}</h4>
+    <h6 class="text-center">{{ user.email }}</h6>
+  </div>
+  <div class="card-body">
+    <!-- Form -->
+    <form *ngIf="user" [formGroup]="form" (ngSubmit)="saveUser($event)">
+      <!-- name -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">Name</span>
+        <input
+          formControlName="name"
+          type="text"
+          name="name"
+          class="form-control"
+          [placeholder]="user.name"
+          autofocus
+          required
+        />
+      </div>
+      <!-- email -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">email</span>
+        <input
+          formControlName="email"
+          type="text"
+          name="email"
+          class="form-control"
+          [placeholder]="user.email"
+          required
+        />
+      </div>
+      <!-- phone -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">Phone</span>
+        <input
+          formControlName="phone"
+          type="text"
+          name="phone"
+          class="form-control"
+          [placeholder]="user.phone"
+          required
+        />
+      </div>
+      <!-- deliveryAddress -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">deliveryAddress</span>
+        <input
+          formControlName="deliveryAddress"
+          type="text"
+          name="deliveryAddress"
+          class="form-control"
+          [placeholder]="user.deliveryAddress"
+          required
+        />
+      </div>
+      <!-- documentNumber -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">documentNumber</span>
+        <input
+          formControlName="documentNumber"
+          type="text"
+          name="documentNumber"
+          class="form-control"
+          [placeholder]="user.documentNumber"
+          required
+        />
+      </div>
+      <!-- Birth Date -->
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">birthDate</span>
+        <input
+          formControlName="birthDate"
+          type="date"
+          name="birthDate"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="text-center">
+        <button
+          (click)="initModal(confirmationModal)"
+          type="submit"
+          class="btn btn-primary w-50 m-2"
+          name="submitButton"
+        >
+          Save
+          <fa-icon [icon]="faSave"></fa-icon>
+        </button>
+      </div>
+    </form>
+    <div class="text-center">
+      <button (click)="deleteUser(user._id)" class="btn btn-danger w-50 m-2">
+                Delete this user 
+                <fa-icon [icon]="faTrashAlt"></fa-icon>
+      </button>
+    </div>
+    <hr class="w-50 mx-auto" />
+    <div class="text-center">
+      <button
+        (click)="goToUsersTable()"
+        type="button"
+        class="btn btn-secondary w-50"
+        name="signUpButton"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  #confirmationModal
+  class="modal fade"
+  id="confirmationModal"
+  tabindex="-1"
+  aria-labelledby="confirmationModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="modal-body" class="modal-body fs-3">
+        <div class="d-flex justify-content-center mt-4">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

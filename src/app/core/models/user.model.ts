@@ -1,11 +1,15 @@
 export interface User {
-    id?: string,
+    _id?: string,
     name: string,
     email: string,
-    phone?: number,
-    password: string,
+    password?: string,
+    phone?: string,
     passwordConfirmation?: string,
+    deliveryAddress?: string,
+    birthDate?: string,
+    documentNumber?: string,
+    orders?: any,
+    isAdmin?: boolean
     rememberMe?: boolean,
     authdata?: string,
-    isAdmin?: boolean
 }

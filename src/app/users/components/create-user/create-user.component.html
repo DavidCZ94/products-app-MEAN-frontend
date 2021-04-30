@@ -19,95 +19,85 @@
                 required
               />
             </div>
-            <!-- Brand -->
+            <!-- email -->
             <div class="form-group my-2">
               <input
-                formControlName="brand"
+                formControlName="email"
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <!-- phone -->
+            <div class="form-group my-2">
+              <input
+                formControlName="phone"
                 type="text"
-                name="brand"
+                name="phone"
                 class="form-control"
-                placeholder="Brand"
+                placeholder="Phone"
                 required
               />
             </div>
-            <!-- Class -->
+            <!-- deliveryAddress -->
             <div class="form-group my-2">
               <input
-                formControlName="class"
+                formControlName="deliveryAddress"
                 type="text"
-                name="class"
+                name="deliveryAddress"
                 class="form-control"
-                placeholder="Class"
+                placeholder="DeliveryAddress"
                 required
               />
             </div>
-            <!-- distributor -->
+            <!-- birthDate -->
             <div class="form-group my-2">
               <input
-                formControlName="distributor"
+                formControlName="birthDate"
+                type="Date"
+                name="birthDate"
+                class="form-control"
+                placeholder="birthDate"
+                required
+              />
+            </div>
+            <!-- documentNumber -->
+            <div class="form-group my-2">
+              <input
+                formControlName="documentNumber"
                 type="text"
-                name="distributor"
+                name="documentNumber"
                 class="form-control"
-                placeholder="Distributor"
+                placeholder="documentNumber"
                 required
               />
             </div>
-            <!-- Stock -->
-            <div class="form-group my-2">
-              <input
-                formControlName="stock"
-                type="number"
-                name="stock"
-                class="form-control"
-                placeholder="Stock"
-                required
-              />
-            </div>
-            <!-- Position -->
-            <div class="form-group my-2">
-              <input
-                formControlName="position"
-                type="text"
-                name="position"
-                class="form-control"
-                placeholder="Position"
-                required
-              />
-            </div>
-            <!-- Sale Price -->
+            <!-- password -->
             <div class="form-group my-2 input-group mb-3">
-              <span class="input-group-text">$</span>
               <input
-                formControlName="sale_price"
-                type="number"
-                name="sale_price"
+                formControlName="password"
+                type="password"
+                name="password"
                 class="form-control"
-                placeholder="Sale Price"
+                placeholder="Password"
                 required
               />
             </div>
-            <!-- Cost Price -->
-            <div class="form-group my-2 input-group mb-3">
-              <span class="input-group-text">$</span>
-              <input
-                formControlName="cost_price"
-                type="number"
-                name="cost_price"
-                class="form-control"
-                placeholder="Cost Price"
-                required
-              />
-            </div>
-            <!-- Tags -->
-            <div class="form-group my-2">
-              <input
-                formControlName="tags"
-                type="text"
-                name="tags"
-                class="form-control"
-                placeholder="Tags"
-              />
-            </div>
+            <!-- Rememberme-->
+            <div class="form-group form-check form-switch my-2">
+                <input
+                  formControlName="isAdmin"
+                  class="form-check-input"
+                  type="checkbox"
+                  id="isAdmin"
+                  checked=""
+                />
+                <label class="form-check-label" for="isAdmin"
+                  >Rememberme</label
+                >
+              </div>
 
             <button
               [disabled]="form.invalid"
@@ -122,7 +112,7 @@
           <hr />
           <div>
             <button
-              (click)="redirectToProductTable()"
+              (click)="redirectToUsersTable()"
               type="button"
               class="btn btn-secondary w-100"
               name="signUpButton"
