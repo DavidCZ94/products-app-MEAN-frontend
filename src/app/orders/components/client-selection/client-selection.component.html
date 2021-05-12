@@ -1,0 +1,63 @@
+<div class="container pt-4">
+  <app-order-navar></app-order-navar>
+  <div class="container pt-4">
+    <!-- Add product buttom -->
+    <div class="position-relative py-3">
+      <h2 class="text-center">
+        Select the client
+      </h2>
+      <div class="container">
+        <button class="btn btn-primary" (click)="gotToProductSelection()">
+          back
+        </button>
+      </div>
+    </div>
+    <!-- Search bar -->
+    <div class="d-flex my-4">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search User"
+        aria-label="Search"
+        (keyup)="loadUsers()"
+        [(ngModel)]="search"
+      />
+    </div>
+    <!-- Table products -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>User Selected</th>
+          <th>name</th>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>
+              <button 
+                (click)="selectClient(user)" class="btn btn-success"
+                [routerLink]="['/admin/orders', undefined]" 
+                >
+                Select
+              </button>
+          </td>
+          <td class="list-group">
+            <a
+              class="list-group-item list-group-item-action"
+              [routerLink]="['/admin/users/', user._id]"
+            >
+              {{ user.name }}
+            </a>
+          </td>
+          <td>{{ user.email }}</td>
+          <td *ngIf="user.isAdmin; else isClient">Admin</td>
+          <ng-template #isClient>
+            <td>Client</td>
+          </ng-template>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -3,25 +3,37 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { UsersService } from '../../../core/services/users/users.service';
 import { User } from '../../../core/models/user.model';
+import { OrdersService } from 'src/app/core/services/orders/orders.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-client-selection',
+  templateUrl: './client-selection.component.html',
+  styleUrls: ['./client-selection.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class ClientSelectionComponent implements OnInit {
 
   users: User[] = [];
   faPlus = faPlus;
   search: String = '';
 
   constructor(
-    private usersService: UsersService
+    private usersService: UsersService,
+    private ordersService: OrdersService,
+    private router: Router
   ) {
     this.loadUsers();
   }
 
   ngOnInit(): void {
+  }
+
+  selectClient(user: User){
+    this.ordersService.selectClient(user);
+  }
+
+  gotToProductSelection(){
+    this.router.navigate(['admin/orders/products-selection']);
   }
 
   loadUsers(){
@@ -38,5 +50,4 @@ export class UsersComponent implements OnInit {
         }
       )
   }
-
 }

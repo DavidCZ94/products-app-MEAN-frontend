@@ -1,0 +1,83 @@
+<div class="container pt-4">
+  <!-- Order nav bar  -->
+  <app-order-navar></app-order-navar>
+  <!-- Add product buttom -->
+  <div class="position-relative py-3 text-center">
+    <h3 class="">
+      Select your products
+    </h3>
+  </div>
+  <div class="container text-center">
+    <button type="button" class="btn btn-primary mx-2" (click)="goToOrdersTable()">Back</button>
+    <button type="button" class="btn btn-success mx-2" (click)="goToClientSelection()">Select Client</button>
+  </div>
+  <!-- Search bar -->
+  <div class="d-flex my-4">
+    <input
+      class="form-control me-2"
+      type="search"
+      placeholder="Search Product"
+      aria-label="Search"
+      (keyup)="loadProducts()"
+      [(ngModel)]="search"
+    />
+  </div>
+  <!-- Table products -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sku</th>
+        <th>Product</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th class="text-center">Add to Cart</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td class="list-group">
+          <a
+            class="list-group-item list-group-item-action"
+            [routerLink]="['/admin/products/', product._id]"
+          >
+            {{ product.sku }}
+          </a>
+        </td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.brand }}</td>
+        <td>{{ product.sale_price | currency }}</td>
+        <td>{{ product.stock }}</td>
+        <td (click)="addToCart(product)" class="text-center">
+          <fa-icon [icon]="faPlus" class="btn btn-success fa-sm"></fa-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Modal -->
+<div
+  #confirmationModal
+  class="modal fade"
+  id="confirmationModal"
+  tabindex="-1"
+  aria-labelledby="confirmationModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="modal-body" class="modal-body fs-3">
+        <div class="d-flex justify-content-center mt-4">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
