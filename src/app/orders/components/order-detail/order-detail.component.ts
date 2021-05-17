@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, Renderer2, ElementRef } from '@angular/core';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
-import { faTrashAlt, faSave} from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faSave, faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 import { Order } from 'src/app/core/models/order.model';
@@ -10,6 +10,8 @@ import { OrdersService } from 'src/app/core/services/orders/orders.service';
 import { User } from 'src/app/core/models/user.model';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { Product } from 'src/app/core/models/product.model';
+import { ShoppingCartService } from 'src/app/core/services/shopping-cart/shopping-cart.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-order-detail',
@@ -20,39 +22,58 @@ export class OrderDetailComponent implements OnInit {
   /* icons */
   faTrashAlt = faTrashAlt;
   faSave = faSave;
+  faPlus = faPlus;
+  faMinus = faMinus;
 
   order: Order;
+  newOrder: boolean;
   orderId: string;
   form: FormGroup;
   client: User;
-  amount: number;
+  amount$: Observable<number>;
+  disabledDeleteOrder: boolean;
 
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
+
+  @ViewChild('deleteButton', { static: false }) deleteButton: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private ordersService: OrdersService,
-    private userService: UsersService
-  ) {
+    private userService: UsersService,
+    private shoppingCartService: ShoppingCartService,
+    private renderer2 :Renderer2
+  ) {}
+
+  ngOnInit(): void {
+    this.amount$ = this.shoppingCartService.amount$;
     this.route.params.subscribe((params: Params) => {
       this.orderId = params.id;
     }); 
-    if ( this.orderId === undefined ) {
-      this.order = this.ordersService.getOrder();
+    if ( this.orderId === 'undefined' ) {
+      this.order = this.getActualOrder();
+      this.disabledDeleteOrder = true;
+      this.newOrder = true;
     }else {
-      this.order = this.getOrder(this.orderId);
+      this.order = this.getOrderById(this.orderId);
+      this.disabledDeleteOrder = false;
+      this.newOrder = false;
     }
+    this.buildForm(this.order);
     this.getClient(this.order.clientId);
-    this.amount = this.calcTotalAmount(this.order);
-    this.buildForm(this.ordersService.getOrder());
-   }
-
-  ngOnInit(): void {
   }
   
+  getActualOrder(){
+    return this.ordersService.getActualOrder();
+  }
+
+  getOrderById(id: string){
+    return this.ordersService.getOrderById(id);
+  }
+
   getClient( userId: string ){
     this.userService.getUser(userId)
       .subscribe(
@@ -65,34 +86,51 @@ export class OrderDetailComponent implements OnInit {
       )
   }
 
-  calcTotalAmount(order: Order){
-    let amount = 0;
-    order.shopping_cart.map( product => {
-      amount = amount + (product.qty * product.sale_price);
-    } );
-    return amount;
+  addToCart(product: Product){
+    this.shoppingCartService.addProduct(product);
+  }
+
+  deleteFromCart(product: Product){
+    this.shoppingCartService.deleteFromCart(product);
   }
 
   /* CRUD */
 
-  saveOrder(event: Event){
+  formAction(event: Event){
     event.preventDefault();
-    console.log(this.form.value);
-    console.log(this.order);
-    if( this.form.valid ){
-      this.order = this.form.value;
+  }
+
+  saveOrder(){
+    if (this.newOrder) {
+      delete this.order._id;
+      this.createOrder(this.order);
+    }else{
+      this.updateOrder(this.order);
     }
-    this.updateOrder(this.order, this.orderId);
   }
 
-  getOrder(id: string){
-    return this.ordersService.getActualOrder();
+  createOrder(order: Order){
+    this.ordersService.createOrder(order)
+    .subscribe(
+      (res) => {
+        this.order = null;
+        this.orderId = null;
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.querySelector('.modal-body').textContent = 'Order saved successfully';
+        confirmationModal.addEventListener('hide.bs.modal', (event) => {
+          this.goToOrdersTable();
+        });
+      },
+      (err) => {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
+      }
+    );
   }
 
-  updateOrder(order: Order, orderId: string){
-    console.log('Update Order');
+  updateOrder(order: Order){
+    this.ordersService.updateOrder(order);
   }
-
 
   deleteOrder(id: string){
     console.log('delete Order');
@@ -114,6 +152,10 @@ export class OrderDetailComponent implements OnInit {
 
   goToOrdersTable(){
     this.router.navigate(['admin/orders']);
+  }
+
+  goToClientSelection(){
+    this.router.navigate(['admin/orders/client-selection']);
   }
 
   initModal(element): void{

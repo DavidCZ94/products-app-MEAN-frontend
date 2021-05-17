@@ -10,7 +10,7 @@
     </div>
     <div class="card-body">
       <!-- Form -->
-      <form *ngIf="order" [formGroup]="form" (ngSubmit)="saveOrder($event)">
+      <form *ngIf="order && client" [formGroup]="form" (ngSubmit)="formAction($event)">
         <!-- Client -->
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon3">Client Name</span>
@@ -70,69 +70,87 @@
             name="status"
             class="form-select" 
             aria-label="Default select example">
-          <option value="confirmed">canceled</option>
+          <option value="canceled">canceled</option>
           <option value="confirmed">Confirmed</option>
           <option value="pending">Pending</option>
           <option value="delivered">Delivered</option>
         </select>
         </div>
         <!-- Chopping cart table -->
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Sku</th>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th class="text-center">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let product of (order.shopping_cart | sortCart:'_id')">
-              <td class="list-group">
-                <a
-                  class="list-group-item list-group-item-action"
-                  [routerLink]="['./', product]"
-                >
-                  {{ product.sku }}
-                </a>
-              </td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.sale_price | currency }}</td>
-              <td>{{ product.qty }}</td>
-              <td class="text-center">{{ product.sale_price * product.qty | currency }}</td>
-            </tr>
-            <tr class="text-center">
-              <td></td>
-              <td></td>
-              <td colspan="2" class="table-active">Total:</td>
-              <td>{{amount | currency}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-center align-middle">
+                <th>Sku</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Stock</th>
+                <th>Total</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center align-middle" *ngFor="let product of (order.shopping_cart | sortCart:'_id')">
+                <td class="list-group align-middle">
+                  <a
+                    class="list-group-item list-group-item-action"
+                    [routerLink]="['./', product]"
+                  >
+                    {{ product.sku }}
+                  </a>
+                </td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.sale_price | currency }}</td>
+                <td>{{ product.qty }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.sale_price * product.qty | currency }}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button (click)="addToCart(product)" class="btn btn-success text-center">
+                      <fa-icon [icon]="faPlus" class="fa-sm"></fa-icon>
+                    </button>
+                    <button (click)="deleteFromCart(product)" class="btn btn-warning text-center">
+                      <fa-icon [icon]="faMinus" class="fa-sm"></fa-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr  class="text-center align-middle">
+                <td></td>
+                <td></td>
+                <td colspan="3" class="table-active">Total:</td>
+                <td>{{amount$ | async | currency}}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <!-- Actions -->
         <div class="text-center">
           <button
             (click)="initModal(confirmationModal)"
+            (click)="saveOrder()"
             type="submit"
             class="btn btn-primary w-50 m-2"
             name="submitButton"
           >
-            Save
+            Save Order
             <fa-icon [icon]="faSave"></fa-icon>
           </button>
         </div>
+        <div class="text-center">
+          <button class="btn btn-danger w-50 m-2" [disabled]='disabledDeleteOrder'>
+            Delete this order 
+            <fa-icon [icon]="faTrashAlt"></fa-icon>
+          </button>
+        </div>
       </form>
-      <div class="text-center">
-        <button (click)="deleteOrder(order._id)" class="btn btn-danger w-50 m-2">
-                  Delete this user 
-                  <fa-icon [icon]="faTrashAlt"></fa-icon>
-        </button>
-      </div>
       <hr class="w-50 mx-auto" />
       <div class="text-center">
         <button
-          (click)="goToOrdersTable()"
+          (click)="goToClientSelection()"
           type="button"
           class="btn btn-secondary w-50"
           name="signUpButton"
@@ -143,6 +161,7 @@
     </div>
   </div>
 </div>
+
   <!-- Modal -->
   <div
     #confirmationModal

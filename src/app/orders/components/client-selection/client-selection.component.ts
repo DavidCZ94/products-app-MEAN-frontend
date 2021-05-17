@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 import { UsersService } from '../../../core/services/users/users.service';
 import { User } from '../../../core/models/user.model';
@@ -13,8 +13,12 @@ import { Router } from '@angular/router';
 })
 export class ClientSelectionComponent implements OnInit {
 
-  users: User[] = [];
+  /* Icons */
   faPlus = faPlus;
+  faArrowLeft = faArrowLeft;
+  faArrowRight = faArrowRight;
+
+  users: User[] = [];
   search: String = '';
 
   constructor(

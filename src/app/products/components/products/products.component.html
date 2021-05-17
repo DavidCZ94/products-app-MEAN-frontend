@@ -21,33 +21,35 @@
     />
   </div>
   <!-- Table products -->
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Sku</th>
-        <th>Product</th>
-        <th>Brand</th>
-        <th>Price</th>
-        <th>Stock</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
-        <td class="list-group">
-          <a
-            class="list-group-item list-group-item-action"
-            [routerLink]="['./', product._id]"
-          >
-            {{ product.sku }}
-          </a>
-        </td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.brand }}</td>
-        <td>{{ product.sale_price | currency }}</td>
-        <td>{{ product.stock }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Sku</th>
+          <th>Product</th>
+          <th>Brand</th>
+          <th>Price</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td class="list-group">
+            <a
+              class="list-group-item list-group-item-action"
+              [routerLink]="['./', product._id]"
+            >
+              {{ product.sku }}
+            </a>
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.brand }}</td>
+          <td>{{ product.sale_price | currency }}</td>
+          <td>{{ product.stock }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <!-- Modal -->
 <div

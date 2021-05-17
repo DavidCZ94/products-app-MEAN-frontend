@@ -8,8 +8,14 @@
     </h3>
   </div>
   <div class="container text-center">
-    <button type="button" class="btn btn-primary mx-2" (click)="goToOrdersTable()">Back</button>
-    <button type="button" class="btn btn-success mx-2" (click)="goToClientSelection()">Select Client</button>
+    <button type="button" class="btn btn-primary mx-2" (click)="goToOrdersTable()">
+      <fa-icon [icon]="faArrowLeft"></fa-icon>
+      Back
+    </button>
+    <button type="button" class="btn btn-success mx-2" (click)="goToClientSelection()">
+      Select Client
+      <fa-icon [icon]="faArrowRight"></fa-icon>
+    </button>
   </div>
   <!-- Search bar -->
   <div class="d-flex my-4">
@@ -23,37 +29,39 @@
     />
   </div>
   <!-- Table products -->
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Sku</th>
-        <th>Product</th>
-        <th>Brand</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th class="text-center">Add to Cart</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
-        <td class="list-group">
-          <a
-            class="list-group-item list-group-item-action"
-            [routerLink]="['/admin/products/', product._id]"
-          >
-            {{ product.sku }}
-          </a>
-        </td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.brand }}</td>
-        <td>{{ product.sale_price | currency }}</td>
-        <td>{{ product.stock }}</td>
-        <td (click)="addToCart(product)" class="text-center">
-          <fa-icon [icon]="faPlus" class="btn btn-success fa-sm"></fa-icon>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Sku</th>
+          <th>Product</th>
+          <th>Brand</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th class="text-center">Add to Cart</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td class="list-group">
+            <a
+              class="list-group-item list-group-item-action"
+              [routerLink]="['/admin/products/', product._id]"
+            >
+              {{ product.sku }}
+            </a>
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.brand }}</td>
+          <td>{{ product.sale_price | currency }}</td>
+          <td>{{ product.stock }}</td>
+          <td (click)="addToCart(product)" class="text-center">
+            <fa-icon [icon]="faPlus" class="btn btn-success fa-sm"></fa-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <!-- Modal -->
 <div

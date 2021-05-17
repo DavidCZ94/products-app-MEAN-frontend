@@ -18,31 +18,33 @@
             type="search"
             placeholder="Search User"
             aria-label="Search"
-            (keyup)="loadUsers()"
+            (keyup)="loadOrders()"
             [(ngModel)]="search"
             />
     </div>
     <!-- Table products -->
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>_id</th>
-                <th>client</th>
-                <th>status</th>
-            </tr>
-        </thead> 
-        <tbody>
-            <tr *ngFor="let order of orders">
-                  <td class="list-group">
-                    <a class="list-group-item list-group-item-action"
-                    [routerLink]="['/admin/orders', order._id]" 
-                    >
-                        {{ order._id }}
-                    </a>  
-                  </td>
-                  <td>{{ order.clientId }}</td>
-                  <td>{{ order.status }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>_id</th>
+                  <th>client</th>
+                  <th>status</th>
+              </tr>
+          </thead> 
+          <tbody>
+              <tr *ngFor="let order of orders">
+                    <td class="list-group">
+                      <a class="list-group-item list-group-item-action"
+                      [routerLink]="['/admin/orders', order._id]" 
+                      >
+                          {{ order._id }}
+                      </a>  
+                    </td>
+                    <td>{{ order.clientId }}</td>
+                    <td>{{ order.status }}</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
 </div>

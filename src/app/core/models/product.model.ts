@@ -1,10 +1,11 @@
 export interface Product {
     _id?: string
-    creating_date?: any
+    creation_date?: any
     sku?: string
     name: string
     brand: string
     class: string
+    qty?: number
     distributor: string
     stock: number
     position: string

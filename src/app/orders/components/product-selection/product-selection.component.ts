@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
 
 import { ProductsService } from 'src/app/core/services/products/products.service';
@@ -13,8 +13,10 @@ import { Product } from '../../../core/models/product.model';
   styleUrls: ['./product-selection.component.scss']
 })
 export class ProductSelectionComponent implements OnInit {
-  
+  /* Icons */
   faPlus = faPlus;
+  faArrowRight = faArrowRight;
+  faArrowLeft = faArrowLeft;
 
   products: Product[] = [];
   shoppingCart: string[] = [];
@@ -47,7 +49,7 @@ export class ProductSelectionComponent implements OnInit {
     )
   }
 
-  addToCart(product: object){
+  addToCart(product: Product){
     this.shoppingCartService.addProduct(product);
   }
 

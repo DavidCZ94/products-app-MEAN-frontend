@@ -20,13 +20,13 @@ export class OrdersComponent implements OnInit {
     private ordersService: OrdersService,
     private router: Router
   ) {
-    this.loadUsers();
+    this.loadOrders();
    }
 
   ngOnInit(): void {
   }
 
-  loadUsers(){
+  loadOrders(){
     this.orders = this.ordersService.getOrders();
   }
 
