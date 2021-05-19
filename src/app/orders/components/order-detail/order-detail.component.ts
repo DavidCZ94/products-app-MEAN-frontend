@@ -57,13 +57,13 @@ export class OrderDetailComponent implements OnInit {
       this.order = this.getActualOrder();
       this.disabledDeleteOrder = true;
       this.newOrder = true;
+      this.buildForm(this.order);
+      this.getClient(this.order.clientId);
     }else {
-      this.order = this.getOrderById(this.orderId);
+      this.getOrderById(this.orderId);
       this.disabledDeleteOrder = false;
       this.newOrder = false;
     }
-    this.buildForm(this.order);
-    this.getClient(this.order.clientId);
   }
   
   getActualOrder(){
@@ -71,7 +71,17 @@ export class OrderDetailComponent implements OnInit {
   }
 
   getOrderById(id: string){
-    return this.ordersService.getOrderById(id);
+    return this.ordersService.getOrderById(id)
+    .subscribe(
+      (res) => {
+        this.order = res.data;
+        this.buildForm(this.order);
+        this.getClient(this.order.clientId);
+      }, 
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getClient( userId: string ){
@@ -100,16 +110,18 @@ export class OrderDetailComponent implements OnInit {
     event.preventDefault();
   }
 
-  saveOrder(){
+  saveOrder(orderId: string){
+    console.log(this.order);
     if (this.newOrder) {
       delete this.order._id;
       this.createOrder(this.order);
     }else{
-      this.updateOrder(this.order);
+      this.updateOrder(this.order, orderId);
     }
   }
 
   createOrder(order: Order){
+    delete order.creation_date;
     this.ordersService.createOrder(order)
     .subscribe(
       (res) => {
@@ -128,8 +140,21 @@ export class OrderDetailComponent implements OnInit {
     );
   }
 
-  updateOrder(order: Order){
-    this.ordersService.updateOrder(order);
+  updateOrder(order: Order, orderId: string){
+    this.ordersService.updateOrder(order, orderId)
+    .subscribe(
+      (res) => {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.querySelector('.modal-body').textContent = 'Order updated successfully';
+        confirmationModal.addEventListener('hide.bs.modal', (event) => {
+          this.goToOrdersTable();
+        });
+      },
+      (err) => {
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
+      }
+    );
   }
 
   deleteOrder(id: string){
@@ -140,7 +165,7 @@ export class OrderDetailComponent implements OnInit {
   private buildForm(order: Order){
     this.form = this.formBuilder.group({
       _id: [ order._id ],
-      client: [ '' ],
+      client: [ order.clientId ],
       creation_date: [ order.creation_date ],
       delivery_address: [ order.delivery_address ],
       paid_out: [ order.paid_out ],

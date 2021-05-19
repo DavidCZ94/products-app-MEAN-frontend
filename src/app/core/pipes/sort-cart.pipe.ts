@@ -16,7 +16,6 @@ export class SortCartPipe implements PipeTransform {
         countedObjects.push({...object, qty});
       }
     }
-    //console.log(countedObjects);
     return objects;
   }
 

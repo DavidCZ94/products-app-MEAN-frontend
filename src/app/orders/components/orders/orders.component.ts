@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Order } from 'src/app/core/models/order.model';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
+import { UsersService } from 'src/app/core/services/users/users.service';
 
 @Component({
   selector: 'app-orders',
@@ -18,7 +19,8 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private ordersService: OrdersService,
-    private router: Router
+    private router: Router,
+    private userService: UsersService
   ) {
     this.loadOrders();
    }
@@ -26,8 +28,19 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loadOrders(){
-    this.orders = this.ordersService.getOrders();
+  loadOrders(){ 
+    const filter =
+    typeof this.search == 'string' && this.search.length > 0
+      ? `?searchBy=${this.search}`
+      : ''
+    this.ordersService.getOrders(filter).subscribe(
+      (res) => {
+        this.orders = res.data;
+      },
+      (err) => {
+        alert('An error occurred connecting to the database.');
+      }
+    );
   }
 
   goToOrderDetail(orderId: String){

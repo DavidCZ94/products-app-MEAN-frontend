@@ -29,11 +29,13 @@
               <tr>
                   <th>_id</th>
                   <th>client</th>
-                  <th>status</th>
+                  <th>Status</th>
+                  <th>Paid Out</th>
+                  <th>Creation date</th>
               </tr>
           </thead> 
-          <tbody>
-              <tr *ngFor="let order of orders">
+          <tbody >
+              <tr *ngFor="let order of orders" ngForOf="">
                     <td class="list-group">
                       <a class="list-group-item list-group-item-action"
                       [routerLink]="['/admin/orders', order._id]" 
@@ -43,6 +45,8 @@
                     </td>
                     <td>{{ order.clientId }}</td>
                     <td>{{ order.status }}</td>
+                    <td>{{ order.paid_out }}</td>
+                    <td>{{ order.creation_date | date }}</td>
               </tr>
           </tbody>
       </table>

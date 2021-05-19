@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SortCartPipe } from './pipies/sort-cart.pipe';
+import { SortCartPipe } from './pipes/sort-cart.pipe';
+import { ClientNamePipe } from './pipes/client-name.pipe';
 
 @NgModule({
   exports: [
-    SortCartPipe
+    SortCartPipe,
+    ClientNamePipe
   ],
   declarations: [
-    SortCartPipe
+    SortCartPipe,
+    ClientNamePipe
   ],
   imports: [
     CommonModule

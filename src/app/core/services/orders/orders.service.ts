@@ -17,7 +17,6 @@ export class OrdersService {
 
   order = {
     _id: '603c4c5e85921d4370127077',
-    creation_date: this.getActualDate(),
     clientId: '603c4c5e85921d4550127077',
     paid_out: false,
     status: 'pending',
@@ -25,27 +24,7 @@ export class OrdersService {
     shopping_cart: []
   };
   
-  orders: Order[] =[
-    this.order,
-    {
-      _id: '555c4c5e85921d4370127077',
-    creation_date: this.getActualDate(),
-    clientId: '603c4c5e85921d4550127077',
-    paid_out: false,
-    status: 'pending',
-    delivery_address: 'Calle Falsa 123',
-    shopping_cart: []
-    },
-    {
-      _id: '666c4c5e85921d4370127077',
-    creation_date: this.getActualDate(),
-    clientId: '603c4c5e85921d4550127077',
-    paid_out: false,
-    status: 'pending',
-    delivery_address: 'Calle Falsa 123',
-    shopping_cart: []
-    }
-  ];
+  orders: Order[];
 
   shoppintCart : string[] = [];
 
@@ -74,14 +53,9 @@ export class OrdersService {
     return this.httpClient.post<any>(this.url + `/orders`, order, { headers: this.getHeaders() });
   }
 
-  updateOrder(order: Order){
-    console.log('update ORder');
-    console.log(order);
-  }
-
-  private getActualDate(){
-    const defaulDate = new Date();
-    return defaulDate.toISOString().split('T')[0];
+  updateOrder(order: Order, orderId: string){
+    delete order._id;
+    return this.httpClient.put<any>(this.url + `/orders/${orderId}`, order, { headers: this.getHeaders() });
   }
 
   selectClient(user: User){
@@ -93,22 +67,16 @@ export class OrdersService {
     return this.order;
   }
 
-  getOrderById(id: string){
-    let order;
-    this.orders.map( (item) => {
-      if(item._id === id){
-        order = item;
-      }
-    });
-    return order;
+  getOrderById(_id: string){
+    return this.httpClient.get<any>(this.url + `/orders/${_id}`, { headers: this.getHeaders() });
   }
 
-  getOrders(){
-    return this.orders;
+  getOrders(filter){
+    return this.httpClient.get<any>(this.url + `/orders${filter}`, { headers: this.getHeaders() } );
   }
 
   addCart(product: Product, orderId: string){
-    console.log(this.order.shopping_cart);
+    
   }
 
 }

@@ -47,6 +47,7 @@
             name="delivery_address"
             class="form-control"
             [placeholder]="order.delivery_address"
+            [(ngModel)]="order.delivery_address"
             required
           />
         </div>
@@ -57,6 +58,7 @@
             formControlName="paid_out" 
             name="paid_out"
             class="form-select" 
+            [(ngModel)]="order.paid_out"
             aria-label="Default select example">
             <option value=true>Paid out</option>
             <option value=false>Pendig</option>
@@ -69,6 +71,7 @@
             formControlName="status" 
             name="status"
             class="form-select" 
+            [(ngModel)]="order.status"
             aria-label="Default select example">
           <option value="canceled">canceled</option>
           <option value="confirmed">Confirmed</option>
@@ -87,7 +90,7 @@
                 <th>Qty</th>
                 <th>Stock</th>
                 <th>Total</th>
-                <th>Actions</th>
+                <th *ngIf="newOrder">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -105,7 +108,7 @@
                 <td>{{ product.qty }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.sale_price * product.qty | currency }}</td>
-                <td>
+                <td *ngIf="newOrder">
                   <div class="btn-group" role="group">
                     <button (click)="addToCart(product)" class="btn btn-success text-center">
                       <fa-icon [icon]="faPlus" class="fa-sm"></fa-icon>
@@ -131,7 +134,7 @@
         <div class="text-center">
           <button
             (click)="initModal(confirmationModal)"
-            (click)="saveOrder()"
+            (click)="saveOrder(order._id)"
             type="submit"
             class="btn btn-primary w-50 m-2"
             name="submitButton"
