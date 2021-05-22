@@ -55,6 +55,8 @@ export class UserDetailComponent implements OnInit {
       this.usersService.updateUser(user, this.userId)
       .subscribe(
         (res) => {
+          console.log('Success');
+          console.log(res);
           const confirmationModal = document.getElementById('confirmationModal');
           confirmationModal.querySelector('.modal-body').textContent = 'User saved successfully';
           confirmationModal.addEventListener('hide.bs.modal', (event) => {
@@ -62,6 +64,8 @@ export class UserDetailComponent implements OnInit {
           });
         },
         (err) => {
+          console.log('Error');
+          console.log(err);
           const confirmationModal = document.getElementById('confirmationModal');
           confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
         }
@@ -127,6 +131,8 @@ export class UserDetailComponent implements OnInit {
   }
 
   goToUsersTable(){
+    const confirmationModal = document.getElementById('confirmationModal');
+    confirmationModal.querySelector('.modal-body').textContent = '';
     this.router.navigate(['admin/users']);
   }
   

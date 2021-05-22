@@ -84,11 +84,12 @@ export class ProductDetailComponent implements OnInit {
   deleteProduct(id: string){
     this.productService.deleteProduct(id)
     .subscribe(
-      (res)=>{
+      (res) => {
+        console.log(res);
         this.goToProductsTable();
       },
-      (err)=>{
-        alert('Something wrong to try delete this product, try again.');
+      (err) => {
+        console.log(err);
       });
   }
 
@@ -107,7 +108,6 @@ export class ProductDetailComponent implements OnInit {
       position: [ this.product.position, [Validators.required]],
       sale_price: [ this.product.sale_price, [Validators.required]],
       cost_price: [ this.product.cost_price, [Validators.required]],
-      tags: [ this.product.tags, [Validators.required]]
     });
   }
 

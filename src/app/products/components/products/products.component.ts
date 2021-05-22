@@ -19,25 +19,12 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.loadProducts();
   }
 
-/*   getProducts() {
-    this.productsService.getProducts().subscribe(
-      (res) => {
-        this.products = res.data;
-      },
-      (err) => {
-        console.log(err);
-        alert(
-          'There was a problem trying to connect to connect to the server. Try again.'
-        );
-      }
-    );
-  } */
+  ngOnInit(): void {
+  }
 
   loadProducts() {
     const filter =
@@ -46,6 +33,7 @@ export class ProductsComponent implements OnInit {
         : ''
     this.productsService.getProducts(filter).subscribe(
       (res) => {
+        console.log(res.data);
         this.products = res.data;
       },
       (err) => {

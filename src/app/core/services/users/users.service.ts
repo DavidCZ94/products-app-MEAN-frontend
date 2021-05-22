@@ -40,6 +40,7 @@ export class UsersService {
   }
 
   updateUser(user: User, id: string){
+    delete user._id;
     return this.httpClient.put<any>(this.url + `/users/${id}`, user, { headers: this.getHeaders() } );
   }
 
