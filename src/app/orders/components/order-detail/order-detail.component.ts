@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
@@ -30,8 +30,8 @@ export class OrderDetailComponent implements OnInit {
   orderId: string;
   form: FormGroup;
   client: User;
-  amount$: Observable<number>;
   disabledDeleteOrder: boolean;
+  amount$: Observable<number>;
 
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
@@ -45,7 +45,6 @@ export class OrderDetailComponent implements OnInit {
     private ordersService: OrdersService,
     private userService: UsersService,
     private shoppingCartService: ShoppingCartService,
-    private renderer2 :Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +53,7 @@ export class OrderDetailComponent implements OnInit {
       this.orderId = params.id;
     }); 
     if ( this.orderId === 'undefined' ) {
-      this.order = this.getActualOrder();
+      this.order = this.ordersService.getActualOrder();
       this.disabledDeleteOrder = true;
       this.newOrder = true;
       this.buildForm(this.order);
@@ -64,10 +63,6 @@ export class OrderDetailComponent implements OnInit {
       this.disabledDeleteOrder = false;
       this.newOrder = false;
     }
-  }
-  
-  getActualOrder(){
-    return this.ordersService.getActualOrder();
   }
 
   getOrderById(id: string){
@@ -111,7 +106,6 @@ export class OrderDetailComponent implements OnInit {
   }
 
   saveOrder(orderId: string){
-    console.log(this.order);
     if (this.newOrder) {
       delete this.order._id;
       this.createOrder(this.order);
@@ -125,10 +119,26 @@ export class OrderDetailComponent implements OnInit {
     this.ordersService.createOrder(order)
     .subscribe(
       (res) => {
+        this.ordersService.resetOrder();
+        this.shoppingCartService.resetShoppingCart();
+        this.order = this.ordersService.getActualOrder();
         this.order = null;
         this.orderId = null;
         const confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.querySelector('.modal-body').textContent = 'Order saved successfully';
+        confirmationModal.querySelector('.modal-title').textContent = 'Order saved';
+        confirmationModal.querySelector('.modal-body').textContent = '';
+        res.data.updatedProductsInform.map(
+          (data) => {
+            data = JSON.stringify(data)
+                    .replace('{', '')
+                    .replace('}', '')
+                    .replace('"', ' ')
+                    .replace('"', ' ')
+                    .replace('"', ' ')
+                    .replace('"', ' ');
+            confirmationModal.querySelector('.modal-body').innerHTML += data+ '<br>';
+          }
+        );
         confirmationModal.addEventListener('hide.bs.modal', (event) => {
           this.goToOrdersTable();
         });
@@ -157,17 +167,12 @@ export class OrderDetailComponent implements OnInit {
     );
   }
 
-  deleteOrder(id: string){
-    console.log('delete Order');
-    //console.log(id);
-  }
-
   private buildForm(order: Order){
     this.form = this.formBuilder.group({
       _id: [ order._id ],
-      client: [ order.clientId ],
+      client: [ order.clientName ],
       creation_date: [ order.creation_date ],
-      delivery_address: [ order.delivery_address ],
+      delivery_address: [ order.delivery_address || '' ],
       paid_out: [ order.paid_out ],
       status: [ order.status ]
     });

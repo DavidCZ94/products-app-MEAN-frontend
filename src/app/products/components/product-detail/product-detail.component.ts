@@ -57,6 +57,7 @@ export class ProductDetailComponent implements OnInit {
   updateProduct(product: Product){
     const productUpdate = {
       name: product.name,
+      sku: product.sku,
       brand: product.brand,
       class: product.class,
       distributor: product.distributor,
@@ -85,7 +86,6 @@ export class ProductDetailComponent implements OnInit {
     this.productService.deleteProduct(id)
     .subscribe(
       (res) => {
-        console.log(res);
         this.goToProductsTable();
       },
       (err) => {
@@ -101,6 +101,7 @@ export class ProductDetailComponent implements OnInit {
     this.form = this.formBuilder.group({
       _id: [ this.product._id, [Validators.required]],
       name: [ this.product.name, [Validators.required]],
+      sku: [ this.product.sku],
       brand: [ this.product.brand, [Validators.required]],
       class: [ this.product.class, [Validators.required]],
       distributor: [ this.product.distributor, [Validators.required]],
@@ -108,6 +109,7 @@ export class ProductDetailComponent implements OnInit {
       position: [ this.product.position, [Validators.required]],
       sale_price: [ this.product.sale_price, [Validators.required]],
       cost_price: [ this.product.cost_price, [Validators.required]],
+      tags: [ this.product.tags ],
     });
   }
 
@@ -116,8 +118,8 @@ export class ProductDetailComponent implements OnInit {
     if( this.form.valid ){
       this.product = {
         '_id' : this.form.value._id,
-        'sku' : this.form.value.sku,
         'name' : this.form.value.name,
+        'sku' : this.form.value.sku,
         'brand' : this.form.value.brand,
         'class' : this.form.value.class,
         'distributor' : this.form.value.distributor,
@@ -129,7 +131,9 @@ export class ProductDetailComponent implements OnInit {
       if (Array.isArray(this.form.value.tags)){
         this.product.tags = this.form.value.tags;
       }else{
-        this.product.tags = this.form.value.tags.split(',');
+        if(this.product.tags !== null){
+          this.product.tags = this.form.value.tags.split(',');
+        }
       }
       this.updateProduct(this.product);
     }

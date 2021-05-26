@@ -33,7 +33,6 @@ export class ProductsComponent implements OnInit {
         : ''
     this.productsService.getProducts(filter).subscribe(
       (res) => {
-        console.log(res.data);
         this.products = res.data;
       },
       (err) => {

@@ -20,7 +20,7 @@
             type="text"
             name="client"
             class="form-control"
-            [placeholder]="client.name"
+            [placeholder]="client.clientName"
             autofocus
             required
           />
@@ -143,12 +143,6 @@
             <fa-icon [icon]="faSave"></fa-icon>
           </button>
         </div>
-        <div class="text-center">
-          <button class="btn btn-danger w-50 m-2" [disabled]='disabledDeleteOrder'>
-            Delete this order 
-            <fa-icon [icon]="faTrashAlt"></fa-icon>
-          </button>
-        </div>
       </form>
       <hr class="w-50 mx-auto" />
       <div class="text-center">
@@ -174,8 +168,11 @@
     aria-labelledby="confirmationModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog">
+<div class="modal-dialog text-center">
       <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Processing order</h5>
+        </div>
         <div id="modal-body" class="modal-body fs-3">
           <div class="d-flex justify-content-center mt-4">
             <div class="spinner-border" role="status">
@@ -190,5 +187,4 @@
         </div>
       </div>
     </div>
-  </div>
-  
+  </div> 

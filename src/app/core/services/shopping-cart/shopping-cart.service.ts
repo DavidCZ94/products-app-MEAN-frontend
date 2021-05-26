@@ -20,37 +20,48 @@ export class ShoppingCartService {
 
   constructor() { }
 
-  addProduct(productTadd: Product){
-    if(productTadd.stock > 0){
-      if (productTadd.qty === undefined) {
-        productTadd.stock--;
-        this.products = [...this.products, productTadd];
+  resetShoppingCart(){
+    this.products = [];
+    this.sortedProducts = [];
+    this.qtyProducts.next(0);
+  }
+
+  addProduct(productToAdd: Product){
+    let productCounter = 0;
+    if(productToAdd.stock > 0){
+      if (productToAdd.qty === undefined) {
+        productToAdd.stock--;
+        this.products = [...this.products, productToAdd];
         this.sortedProducts = this.sortProducts(this.products, '_id');
-        this.cart.next(this.sortedProducts);
-        this.qtyProducts.next(this.products.length);
       }else{
+        this.products = [...this.products, productToAdd];
         this.sortedProducts.map((product)=> {
-          if (product === productTadd &&  product.qty > 0) {
+          if (product === productToAdd &&  product.qty > 0) {
             product.qty++;
             product.stock--;
           }
         });
-        this.cart.next(this.sortedProducts);
-        this.qtyProducts.next(this.products.length);
       }
+      this.sortedProducts.map((product)=> {
+        productCounter += product.qty;
+      });
+      this.qtyProducts.next(productCounter);
+      this.cart.next(this.sortedProducts);
     }
     this.calcTotalAmount(this.sortedProducts);
   }
 
   deleteFromCart(productToDelete: Product){
+    let productCounter = 0;
     this.sortedProducts.map((product)=> {
       if (product === productToDelete &&  product.qty > 0) {
         product.qty--;
         product.stock++;
       }
+      productCounter += product.qty;
     });
     this.cart.next(this.sortedProducts);
-    this.qtyProducts.next(this.products.length);
+    this.qtyProducts.next(productCounter);
     this.calcTotalAmount(this.sortedProducts);
   }
 

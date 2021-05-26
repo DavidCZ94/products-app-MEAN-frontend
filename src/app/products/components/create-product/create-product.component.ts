@@ -32,6 +32,7 @@ export class CreateProductComponent implements OnInit {
   private buildForm(){
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
+      sku: [''],
       brand: ['', [Validators.required]],
       class: ['', [Validators.required]],
       distributor: ['', [Validators.required]],
@@ -39,7 +40,7 @@ export class CreateProductComponent implements OnInit {
       position: ['', [Validators.required]],
       sale_price: ['', [Validators.required]],
       cost_price: ['', [Validators.required]],
-      tags: ['', [Validators.required]]
+      tags: ['']
     })
   }
 

@@ -16,11 +16,12 @@ export class OrdersService {
   private url: string = 'http://localhost:8000';
 
   order = {
-    _id: '603c4c5e85921d4370127077',
-    clientId: '603c4c5e85921d4550127077',
+    _id: '',
+    clientId: '',
+    clientName: '',
     paid_out: false,
     status: 'pending',
-    delivery_address: 'Calle Falsa 123',
+    delivery_address: '',
     shopping_cart: []
   };
   
@@ -49,6 +50,19 @@ export class OrdersService {
     return httpHeaders;
   }
 
+  resetOrder(){
+    this.order = {
+      _id: '',
+      clientId: '',
+      clientName: '',
+      paid_out: false,
+      status: 'pending',
+      delivery_address: '',
+      shopping_cart: []
+    };
+    this.shoppintCart = [];
+  }
+
   createOrder(order: Order){
     return this.httpClient.post<any>(this.url + `/orders`, order, { headers: this.getHeaders() });
   }
@@ -60,6 +74,7 @@ export class OrdersService {
 
   selectClient(user: User){
     this.order.clientId = user._id;
+    this.order.clientName = user.name;
     this.order.delivery_address = user.deliveryAddress;
   } 
 
