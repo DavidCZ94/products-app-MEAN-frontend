@@ -30,6 +30,7 @@ export class ProductsComponent implements OnInit {
   }
 
   jumpToPage(pageNumber){
+    this.products = [];
     if( pageNumber > 0 ){
       this.pageNumber = pageNumber;
       this.loadProducts();
@@ -37,12 +38,14 @@ export class ProductsComponent implements OnInit {
   }
 
   nextPage(){
+    this.products = [];
     this.pageNumber++;
     this.loadProducts();
   }
 
   previousPage(){
     if( this.pageNumber > 1 ){
+      this.products = [];
       this.pageNumber--;
       this.loadProducts();
     }
