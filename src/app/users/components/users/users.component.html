@@ -51,4 +51,25 @@
           </tbody>
       </table>
     </div>
+
+  <!-- PAgination -->
+  <nav class="mt-1" aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [ngClass]="{'disabled':pageNumber - 1 == 0}">
+        <button (click)="previousPage()" class="page-link disabled" tabindex="-1" aria-disabled="true">Previous</button>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled':pageNumber - 1 == 0}">
+        <button (click)="jumpToPage(pageNumber -1)"  class="page-link">{{ pageNumber - 1 }}</button>
+      </li>
+      <li class="page-item active">
+        <button (click)="jumpToPage(pageNumber)"  class="page-link">{{ pageNumber }}</button>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled':!isThereMoreData}">
+        <button (click)="jumpToPage(pageNumber + 1)"  class="page-link">{{ pageNumber + 1 }}</button>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled':!isThereMoreData}">
+        <button (click)="nextPage()" class="page-link">Next</button>
+      </li>
+    </ul>
+  </nav>
 </div>
