@@ -14,9 +14,11 @@ import { UsersService } from 'src/app/core/services/users/users.service';
 export class OrdersComponent implements OnInit {
 
   faPlus = faPlus;
-  search: string;
-
   orders: Order[];
+  search: string;
+  nPerPage: number = 10;
+  pageNumber: number = 1;
+  isThereMoreData = true;
 
   constructor(
     private ordersService: OrdersService,
@@ -29,14 +31,41 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  jumpToPage(pageNumber){
+    this.orders = [];
+    if( pageNumber > 0 ){
+      this.pageNumber = pageNumber;
+      this.loadOrders();
+    }
+  }
+
+  nextPage(){
+    this.orders = [];
+    this.pageNumber++;
+    this.loadOrders();
+  }
+
+  previousPage(){
+    if( this.pageNumber > 1 ){
+      this.orders = [];
+      this.pageNumber--;
+      this.loadOrders();
+    }
+  }
+
   loadOrders(){ 
     const filter =
     typeof this.search == 'string' && this.search.length > 0
-      ? `?searchBy=${this.search}`
-      : ''
+      ? `?searchBy=${this.search}&pageNumber=${this.pageNumber}&nPerPage=${this.nPerPage}`
+      : `?pageNumber=${this.pageNumber}&nPerPage=${this.nPerPage}`
     this.ordersService.getOrders(filter).subscribe(
       (res) => {
         this.orders = res.data;
+        if(res.data.length < this.nPerPage ){
+          this.isThereMoreData = false;
+         }else{
+           this.isThereMoreData = true;
+         }
       },
       (err) => {
         alert('An error occurred connecting to the database.');
