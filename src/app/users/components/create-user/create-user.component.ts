@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,  Renderer2, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
@@ -19,10 +19,14 @@ export class CreateUserComponent implements OnInit {
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
 
+  @ViewChild('passwordInput') passwordInput: ElementRef; 
+  @ViewChild('showPasswordCheck') showPasswordCheck: ElementRef; 
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private userSerivce: UsersService
+    private userSerivce: UsersService,
+    private renderer: Renderer2
   ) {
     this.buildForm();
    }
@@ -34,7 +38,7 @@ export class CreateUserComponent implements OnInit {
     const defaultBirthDate = new Date();
     defaultBirthDate.setFullYear(defaultBirthDate.getUTCFullYear() -18);
     this.form = this.formBuilder.group({
-      name: ['David', [Validators.required]],
+      name: ['David Alberto Cabrera', [Validators.required]],
       email: ['david@davi.com', [Validators.required]],
       phone: ['3333333333', [Validators.required]],
       deliveryAddress: ['calle Falsa 123'],
@@ -79,6 +83,14 @@ export class CreateUserComponent implements OnInit {
 
   redirectToUsersTable(){
     this.router.navigate(['admin/users']);
+  }
+
+  showPassword(){
+    if( this.showPasswordCheck.nativeElement.checked === true){
+      this.renderer.setAttribute(this.passwordInput.nativeElement, "type", "text");
+    }else{
+      this.renderer.setAttribute(this.passwordInput.nativeElement, "type", "password");
+    }
   }
 
 }

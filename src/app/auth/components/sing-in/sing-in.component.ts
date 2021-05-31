@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild , Renderer2, ElementRef} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
@@ -14,14 +14,18 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 export class SingInComponent implements OnInit {
   user: User;
   form: FormGroup;
-  
+
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
+
+  @ViewChild('passwordInput') passwordInput: ElementRef; 
+  @ViewChild('showPasswordCheck') showPasswordCheck: ElementRef; 
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
     ) {
       if( !(JSON.parse(localStorage.getItem('currentUser')) === null ) ){
         console.log(this.user === null);
@@ -99,4 +103,13 @@ export class SingInComponent implements OnInit {
     this.router.navigate(['sing-in']);
   }
 
+  showPassword(){
+    console.log(this.showPasswordCheck.nativeElement.checked);
+    if( this.showPasswordCheck.nativeElement.checked === true){
+      this.renderer.setAttribute(this.passwordInput.nativeElement, "type", "text");
+    }else{
+      this.renderer.setAttribute(this.passwordInput.nativeElement, "type", "password");
+    }
+  }
+  
 }
