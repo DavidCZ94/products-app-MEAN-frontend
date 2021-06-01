@@ -6,27 +6,33 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class BasicAuthInterceptor implements HttpInterceptor{
+
+    currentUser = this.authenticationService.currentUserValue;
+
     constructor(
         private authenticationService: AuthService,
         ){}
     // add authorization header with basic auth credentials if available
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{   
-        let currentUser = this.authenticationService.currentUserValue;
-        if(this.authenticationService.currentUserValue === null){
-            const userEmail = request.body.userEmail;
-            const userPassword = request.body.userPassword;
-            currentUser = request.body;
-            currentUser.authdata = window.btoa(`${userEmail}:${userPassword}`);
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        if( this.currentUser === null ){
+            this.saveUser(request);
         }
-        if (currentUser && currentUser.authdata) {
+        if (this.currentUser && this.currentUser.authdata) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Basic ${currentUser.authdata}`
+                    Authorization: `Basic ${this.currentUser.authdata}`
                 }
             });
         }
         return next.handle(request);
+    }
+
+    saveUser(request){
+        const userEmail = request.body.userEmail;
+        const userPassword = request.body.userPassword;
+        this.currentUser = request.body;
+        this.currentUser.authdata = window.btoa(`${userEmail}:${userPassword}`);
+        localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
     }
 
 }

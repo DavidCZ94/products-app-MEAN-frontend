@@ -28,8 +28,7 @@ export class SingInComponent implements OnInit {
     private renderer: Renderer2
     ) {
       if( !(JSON.parse(localStorage.getItem('currentUser')) === null ) ){
-        console.log(this.user === null);
-        this.redirectToAdminHome();
+        this.logOut();
       }else{
         this.buildForm();
       }
@@ -64,7 +63,7 @@ export class SingInComponent implements OnInit {
     this.authService.signIn(user).subscribe(
       (res) => {
         const confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.querySelector('.modal-body').textContent = 'Successful sign-up';
+        confirmationModal.querySelector('.modal-body').textContent = 'Successful sign-in';
         confirmationModal.addEventListener('hide.bs.modal', (event) => {
           this.redirectToAdminHome();
         });
@@ -96,6 +95,7 @@ export class SingInComponent implements OnInit {
   }
 
   redirectToSignUp(){
+    this.logOut();
     this.router.navigate(['sing-up']);
   }
 
@@ -110,6 +110,11 @@ export class SingInComponent implements OnInit {
     }else{
       this.renderer.setAttribute(this.passwordInput.nativeElement, "type", "password");
     }
+  }
+
+  logOut(){
+    this.authService.logout();
+    this.redirectToAdminHome();
   }
   
 }

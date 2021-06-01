@@ -62,20 +62,25 @@ export class SingUpComponent implements OnInit {
     }
   }
 
-  singUp(user) {
+  singUp(user: User) {
     this.authService.signUp(user).subscribe(
       (res) => {
         if (res.message === 'user created') {
           const confirmationModal = document.getElementById('confirmationModal');
           confirmationModal.querySelector('.modal-body').textContent = 'Successful sign-up';
           confirmationModal.addEventListener('hide.bs.modal', (event) => {
+            this.logOut();
             this.router.navigate(['sign-in']);
           });
         }
       },
       (err) => {
         const confirmationModal = document.getElementById('confirmationModal');
-          confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
+        confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
+        confirmationModal.addEventListener('hide.bs.modal', (event) => {
+          window.location.reload();
+        });
+        localStorage.removeItem('currentUser');
       }
     );
   }
@@ -99,13 +104,15 @@ export class SingUpComponent implements OnInit {
       'data-bs-keyboard': false,
       'data-bs-focus': true,
     });
-    console.log(this.modalDirect);
-    
     this.modalDirect.show();
   }
 
   redirectToSignIn(){
     this.router.navigate(['sing-in']);
+  }
+
+  logOut(){
+    this.authService.logout();
   }
 
 }
