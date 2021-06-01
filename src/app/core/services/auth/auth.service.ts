@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,8 +13,6 @@ import { User } from '../../models/user.model';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-
-  private url: string = 'http://localhost:8000';
 
   constructor(
     private httpClient: HttpClient,
@@ -33,7 +32,7 @@ export class AuthService {
     const userPassword = userData.password;
     const rememberMe = userData.rememberMe;
     
-    return this.httpClient.post<any>(this.url + '/auth/sign-in', { userEmail, userPassword, rememberMe})
+    return this.httpClient.post<any>(environment.apiUrl + '/auth/sign-in', { userEmail, userPassword, rememberMe})
     .pipe(map(user => {
       // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
       user.authdata = window.btoa(userEmail + ':' + userPassword);
@@ -56,6 +55,6 @@ export class AuthService {
   }
 
   signUp(user: User) {
-    return this.httpClient.post<any>(this.url + '/auth/sign-up', user);
+    return this.httpClient.post<any>(environment.apiUrl + '/auth/sign-up', user);
   }
 }

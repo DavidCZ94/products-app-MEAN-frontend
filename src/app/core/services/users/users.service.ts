@@ -1,4 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 
@@ -6,8 +7,6 @@ import { User } from '../../models/user.model';
   providedIn: 'root'
 })
 export class UsersService {
-
-  private url: string = 'http://localhost:8000';
 
   constructor(
     private httpClient: HttpClient
@@ -24,24 +23,24 @@ export class UsersService {
   }
 
   getUsers(filter){
-    return this.httpClient.get<any>(this.url + `/users${filter}`, { headers: this.getHeaders() } );
+    return this.httpClient.get<any>(environment.apiUrl + `/users${filter}`, { headers: this.getHeaders() } );
   }
 
   getUser(id: string){
-    return this.httpClient.get<any>(this.url + `/users/${id}`, { headers: this.getHeaders() } );
+    return this.httpClient.get<any>(environment.apiUrl + `/users/${id}`, { headers: this.getHeaders() } );
   }
 
   createUser(user: User){
-    return this.httpClient.post<any>(this.url + '/users', user, { headers: this.getHeaders() });
+    return this.httpClient.post<any>(environment.apiUrl + '/users', user, { headers: this.getHeaders() });
   }
 
   deleteUser(id: string){
-    return this.httpClient.delete<any>(this.url + `/users/${id}`, { headers: this.getHeaders() });
+    return this.httpClient.delete<any>(environment.apiUrl + `/users/${id}`, { headers: this.getHeaders() });
   }
 
   updateUser(user: User, id: string){
     delete user._id;
-    return this.httpClient.put<any>(this.url + `/users/${id}`, user, { headers: this.getHeaders() } );
+    return this.httpClient.put<any>(environment.apiUrl + `/users/${id}`, user, { headers: this.getHeaders() } );
   }
 
 }

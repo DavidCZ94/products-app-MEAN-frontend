@@ -55,8 +55,6 @@ export class UserDetailComponent implements OnInit {
       this.usersService.updateUser(user, this.userId)
       .subscribe(
         (res) => {
-          console.log('Success');
-          console.log(res);
           const confirmationModal = document.getElementById('confirmationModal');
           confirmationModal.querySelector('.modal-body').textContent = 'User saved successfully';
           confirmationModal.addEventListener('hide.bs.modal', (event) => {
@@ -64,8 +62,6 @@ export class UserDetailComponent implements OnInit {
           });
         },
         (err) => {
-          console.log('Error');
-          console.log(err);
           const confirmationModal = document.getElementById('confirmationModal');
           confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
         }
@@ -101,13 +97,17 @@ export class UserDetailComponent implements OnInit {
   }
 
   private buildUser(user){
+    let normalizedBirthDate = '';
+    if(user.birthDate){
+      normalizedBirthDate = user.birthDate.split("T")[0] ;
+    }
     const newUser = {
       _id: user.id,
       name: user.name,
       email: user.email,
       phone: user.phone || '',
       deliveryAddress: user.deliveryAddress || '',
-      birthDate : user.birthDate.split("T")[0] ,
+      birthDate : normalizedBirthDate,
       documentNumber : user.documentNumber || '',
       orders : user.orders || [''],
       isAdmin : user.isAdmin || false
@@ -127,7 +127,6 @@ export class UserDetailComponent implements OnInit {
       orders: [ user.orders],
       isAdmin: [ user.isAdmin],
     });
-    this.form.controls.birthDate.disable();
   }
 
   goToUsersTable(){

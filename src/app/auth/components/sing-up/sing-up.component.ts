@@ -78,7 +78,7 @@ export class SingUpComponent implements OnInit {
         const confirmationModal = document.getElementById('confirmationModal');
         confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
         confirmationModal.addEventListener('hide.bs.modal', (event) => {
-          window.location.reload();
+          //window.location.reload();
         });
         localStorage.removeItem('currentUser');
       }
