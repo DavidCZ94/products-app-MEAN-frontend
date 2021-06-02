@@ -26,12 +26,15 @@ export class SingInComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private renderer: Renderer2
-    ) {
-      if( !(JSON.parse(localStorage.getItem('currentUser')) === null ) ){
-        this.logOut();
+    ) 
+    {
+      console.log( JSON.parse(localStorage.getItem('currentUser')) );
+      if( JSON.parse(localStorage.getItem('currentUser')) !== null ){
+        this.redirectToAdminHome();
       }else{
-        this.buildForm();
+        this.logOut();
       }
+      this.buildForm();
     }
 
     ngOnInit(): void {}
@@ -104,7 +107,6 @@ export class SingInComponent implements OnInit {
   }
 
   showPassword(){
-    console.log(this.showPasswordCheck.nativeElement.checked);
     if( this.showPasswordCheck.nativeElement.checked === true){
       this.renderer.setAttribute(this.passwordInput.nativeElement, "type", "text");
     }else{
@@ -114,7 +116,7 @@ export class SingInComponent implements OnInit {
 
   logOut(){
     this.authService.logout();
-    this.redirectToAdminHome();
+    this.redirectToSignIn();
   }
   
 }
