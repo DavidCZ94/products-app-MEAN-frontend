@@ -70,6 +70,7 @@ export class OrderDetailComponent implements OnInit {
     .subscribe(
       (res) => {
         this.order = res.data;
+        this.shoppingCartService.calcTotalAmount(this.order.shopping_cart);
         this.buildForm(this.order);
         this.getClient(this.order.clientId);
       }, 
