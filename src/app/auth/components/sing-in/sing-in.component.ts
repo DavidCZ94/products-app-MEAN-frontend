@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild , Renderer2, ElementRef} from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
+import { UsersService } from 'src/app/core/services/users/users.service';
 
 import { User } from '../../../core/models/user.model';
 import { AuthService } from '../../../core/services/auth/auth.service';
@@ -25,27 +26,39 @@ export class SingInComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private usersService: UsersService
     ) 
     {
-      console.log( JSON.parse(localStorage.getItem('currentUser')) );
       if( JSON.parse(localStorage.getItem('currentUser')) !== null ){
-        this.redirectToAdminHome();
+        this.validateToken();
       }else{
         this.logOut();
       }
       this.buildForm();
     }
 
-    ngOnInit(): void {}
+  ngOnInit(): void {}
     
-    private buildForm(){
+  private buildForm(){
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       rememberMe: [],
     })
   }
+
+validateToken(){
+  this.usersService.getUser(this.authService.currentUserValue['user'].id)
+    .subscribe(
+      () => {
+        this.redirectToAdminHome();
+      },
+      () => { 
+        this.logOut();
+      }
+    )
+}
 
   formAction(event: Event){
     event.preventDefault();
