@@ -185,6 +185,16 @@ export class OrderDetailComponent implements OnInit {
     this.router.navigate(['admin/orders']);
   }
 
+  goBack(){
+    if ( this.newOrder ){
+      console.log('New Order');
+      this.goToClientSelection();
+    }else {
+      console.log('Old order');
+      this.goToOrdersTable();
+    }
+  }
+
   goToClientSelection(){
     this.router.navigate(['admin/orders/client-selection']);
   }
