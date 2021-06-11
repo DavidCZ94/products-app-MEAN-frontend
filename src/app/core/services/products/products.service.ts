@@ -37,7 +37,7 @@ export class ProductsService {
   }
 
   createProduct(product: Product){
-    return this.httpClient.post<any>(environment.apiUrl + '/products', product, { headers: this.getHeaders() } );
+    return this.httpClient.post<any>(environment.apiUrl + '/products', product , { headers: this.getHeaders() } );
   }
 
   deleteProduct(id: string){

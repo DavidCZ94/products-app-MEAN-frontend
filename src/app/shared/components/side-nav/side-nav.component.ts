@@ -42,13 +42,13 @@ export class SideNavComponent implements OnInit {
   openSideNav(sideNav, main){
     sideNav.style.width = "200px";
     main.style.marginLeft = "200px";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    //document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
   }
 
   closeSideNav(sideNav, main){
     sideNav.style.width = "0";
     main.style.marginLeft = "0";
-    document.body.style.backgroundColor = "white";
+    //document.body.style.backgroundColor = "white";
   }
 
   logOut(sideNav, main){

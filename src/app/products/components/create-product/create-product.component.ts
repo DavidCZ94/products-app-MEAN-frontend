@@ -2,18 +2,28 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
+import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
+import { forkJoin } from 'rxjs';
 
 import { Product } from 'src/app/core/models/product.model';
+import { environment } from '../../../../environments/environment';
 import { ProductsService } from '../../../core/services/products/products.service';
+import { UploadImagesService } from "../../../core/services/uploadImages/upload-images.service";
 
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.scss']
+  styleUrls: ['./create-product.component.scss'],
+  providers: [ UploadImagesService, ProductsService ]
 })
 export class CreateProductComponent implements OnInit {
+  faCloudUploadAlt = faCloudUploadAlt;
+
   product: Product;
   form: FormGroup;
+  file: File;
+  files: File[] = [];
+  imageSelected: string | ArrayBuffer;
 
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
@@ -21,7 +31,8 @@ export class CreateProductComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private uploadImagesService: UploadImagesService
   ) {
     this.buildForm();
    }
@@ -40,7 +51,7 @@ export class CreateProductComponent implements OnInit {
       position: ['', [Validators.required]],
       sale_price: ['', [Validators.required]],
       cost_price: ['', [Validators.required]],
-      tags: ['']
+      tags: [''],
     })
   }
 
@@ -58,8 +69,9 @@ export class CreateProductComponent implements OnInit {
         'sale_price' : this.form.value.sale_price, 
         'cost_price' : this.form.value.cost_price,
         'tags' : this.form.value.tags.split(','),
+        'productPictures': []
       };
-      this.createProduct(this.product);
+      this.addPicturesUrl(this.files);
     }
   }
 
@@ -78,6 +90,45 @@ export class CreateProductComponent implements OnInit {
         confirmationModal.querySelector('.modal-body').textContent = 'Something went wrong, try again.';
       }
     )
+  }
+
+  addPicturesUrl(files : File[]){
+    let imageUploadObservables = [];
+    files.map(
+      file => {
+        imageUploadObservables.push(this.onUploadImage(file));
+      }
+    );
+    const uploadResponse = forkJoin( imageUploadObservables );
+    uploadResponse.subscribe(
+      (res) => {
+        res.map(
+          ( res ) => this.product.productPictures.push( res['secure_url'] )
+        )
+        this.createProduct(this.product);
+      }
+    );
+  }
+
+  onUploadImage(file: File){
+    if ( file ){
+      const file_data = file;
+      const data = new FormData();
+      data.append("file", file_data);
+      data.append('upload_preset', environment.cloudinaryUploadPreset);
+      data.append('cloud_name', environment.cloudinaryCloudName);
+      return this.uploadImagesService.uploadImage(data);
+    }
+  }
+
+  onSelect(event) {
+    //console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+  
+  onRemove(event) {
+    //console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
   }
 
   initModal(element): void{

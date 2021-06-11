@@ -11,5 +11,6 @@ export interface Product {
     position: string
     sale_price: number 
     cost_price: number
-    tags?: string[]
+    tags?: string[],
+    productPictures?: string[]
 }

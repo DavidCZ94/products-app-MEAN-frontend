@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './components/products/products.component';
@@ -17,7 +18,8 @@ import { CreateProductComponent } from './components/create-product/create-produ
     ProductsRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxDropzoneModule
   ]
 })
 export class ProductsModule { }

@@ -14,6 +14,9 @@ export class BasicAuthInterceptor implements HttpInterceptor{
         ){}
     // add authorization header with basic auth credentials if available
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{   
+        if(request.url.indexOf("cloudinary") !== -1 ){
+            return next.handle(request);
+        }
         if(request.url.indexOf("sign-up") === -1 ){
             if( this.currentUser === null ){
                 this.saveUser(request);
