@@ -10,6 +10,11 @@
     padding-top: 60px;
     transition: 0.5s;
 
+    .active{
+        background-color: #6C757D;
+        color: white;
+    }
+
     .container{
         padding-top: 5px;
         margin: auto;

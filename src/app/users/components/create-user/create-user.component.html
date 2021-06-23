@@ -22,6 +22,7 @@
             <!-- email -->
             <div class="form-group my-2">
               <input
+                [class.is-invalid]="form.controls.email.invalid"
                 formControlName="email"
                 type="email"
                 name="email"
@@ -70,42 +71,10 @@
                 type="text"
                 name="documentNumber"
                 class="form-control"
-                placeholder="documentNumber"
+                placeholder="Document Number"
                 required
               />
             </div>
-            <!-- password -->
-            <div class="form-group my-2 input-group mb-3">
-              <input
-                #passwordInput
-                formControlName="password"
-                type="password"
-                name="password"
-                class="form-control"
-                placeholder="Password"
-                required
-              />
-            </div>
-            <!-- Show Password check -->
-            <div class="form-group form-check form-switch my-2" (click)="showPassword()">
-              <input #showPasswordCheck class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-              <label class="form-check-label" for="flexCheckChecked">
-                Show password
-              </label>
-            </div>
-            <!-- Rememberme-->
-            <div class="form-group form-check form-switch my-2">
-                <input
-                  formControlName="isAdmin"
-                  class="form-check-input"
-                  type="checkbox"
-                  id="isAdmin"
-                  checked=""
-                />
-                <label class="form-check-label" for="isAdmin"
-                  >Rememberme</label
-                >
-              </div>
 
             <button
               [disabled]="form.invalid"
@@ -117,7 +86,7 @@
               Save
             </button>
           </form>
-          <hr />
+          <hr/>
           <div>
             <button
               (click)="redirectToUsersTable()"

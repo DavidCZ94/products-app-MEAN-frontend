@@ -86,7 +86,35 @@
           required
         />
       </div>
-
+      <!-- Orders table -->
+      <h6 class="text-center"> Orders </h6>
+      <div class="table-responsive">
+        <table *ngIf="user.orders" class="table table-striped">
+            <thead>
+                <tr>
+                    <th id="_id">_id</th>
+                    <th>Status</th>
+                    <th>Paid Out</th>
+                    <th>Creation date</th>
+                </tr>
+            </thead> 
+            <tbody >
+                <tr *ngFor="let order of user.orders">
+                      <td class="list-group align-middle">
+                        <a class="list-group-item list-group-item-action"
+                        [routerLink]="['/admin/orders', order._id]" 
+                        >
+                            {{ order._id }}
+                        </a>  
+                      </td>
+                      <td class="align-middle">{{ order.status }}</td>
+                      <td class="align-middle">{{ order.paid_out }}</td>
+                      <td class="align-middle">{{ order.creation_date | date }}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <!-- Submit -->
       <div class="text-center">
         <button
           (click)="initModal(confirmationModal)"

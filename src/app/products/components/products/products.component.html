@@ -25,16 +25,20 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Sku</th>
-          <th>Product</th>
-          <th>Brand</th>
-          <th>Price</th>
-          <th>Stock</th>
+          <th class="align-middle">Reference <br> image</th>
+          <th class="align-middle">Sku</th>
+          <th class="align-middle">Product</th>
+          <th class="align-middle">Brand</th>
+          <th class="align-middle">Price</th>
+          <th class="align-middle">Stock</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let product of products">
-          <td class="list-group">
+          <td class="align-middle">
+            <img *ngIf="product.productPictures" [src]="product.productPictures[0]" class="rounded" alt="product Image">
+          </td>
+          <td class="align-middle">
             <a
               class="list-group-item list-group-item-action"
               [routerLink]="['./', product._id]"
@@ -42,10 +46,10 @@
               {{ product.sku }}
             </a>
           </td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.brand }}</td>
-          <td>{{ product.sale_price | currency }}</td>
-          <td>{{ product.stock }}</td>
+          <td class="align-middle">{{ product.name }}</td>
+          <td class="align-middle">{{ product.brand }}</td>
+          <td class="align-middle">{{ product.sale_price | currency }}</td>
+          <td class="align-middle">{{ product.stock }}</td>
         </tr>
       </tbody>
     </table>

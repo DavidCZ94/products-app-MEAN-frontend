@@ -6,6 +6,7 @@
       </div>
       <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="saveUser($event)">
+          <!-- Name input -->
           <div class="form-group my-2">
             <input
               formControlName="name"
@@ -17,6 +18,7 @@
               required
             />
           </div>
+          <!-- Email input -->
           <div class="form-group my-2">
             <input
               [class.is-invalid]="form.controls.email.invalid"
@@ -28,6 +30,7 @@
               required
             />
           </div>
+          <!-- Password -->
           <div class="form-group my-2">
             <input
               [class.is-invalid]="isPasswordValid"
@@ -43,6 +46,7 @@
               characters.
             </div>
           </div>
+          <!-- PAsswor confirmation -->
           <div class="form-group my-2">
             <input
               [class.is-invalid]="!isPasswordConfirmationValid"

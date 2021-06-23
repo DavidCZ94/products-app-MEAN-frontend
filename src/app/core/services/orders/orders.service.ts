@@ -87,9 +87,4 @@ export class OrdersService {
   getOrders(filter){
     return this.httpClient.get<any>(environment.apiUrl + `/orders${filter}`, { headers: this.getHeaders() } );
   }
-
-  addCart(product: Product, orderId: string){
-    
-  }
-
 }

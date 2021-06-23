@@ -32,18 +32,18 @@
           </thead>
           <tbody>
               <tr *ngFor="let user of users">
-                    <td class="list-group">
+                    <td class="list-group align-middle">
                       <a class="list-group-item list-group-item-action"
                       [routerLink]="['./', user._id]" >
                           {{ user.name }}
                       </a>  
                     </td>
-                    <td>{{ user.email }}</td>
-                    <td *ngIf="user.isAdmin; else isClient">
+                    <td class="align-middle">{{ user.email }}</td>
+                    <td class="align-middle" *ngIf="user.isAdmin; else isClient">
                       Admin
                     </td>
                     <ng-template #isClient>
-                        <td>
+                        <td class="align-middle">
                           Client
                         </td>
                     </ng-template>

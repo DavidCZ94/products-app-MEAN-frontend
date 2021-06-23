@@ -79,7 +79,7 @@
           <option value="delivered">Delivered</option>
         </select>
         </div>
-        <!-- Chopping cart table -->
+        <!-- Shopping cart table -->
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -98,7 +98,7 @@
                 <td class="list-group align-middle">
                   <a
                     class="list-group-item list-group-item-action"
-                    [routerLink]="['./', product]"
+                    [routerLink]="['/admin/products/', product._id]"
                   >
                     {{ product.sku }}
                   </a>

@@ -172,7 +172,11 @@ export class OrderDetailComponent implements OnInit {
     this.form = this.formBuilder.group({
       _id: [ order._id ],
       client: [ order.clientName ],
-      creation_date: [ order.creation_date ],
+      creation_date: [ 
+        this.newOrder === false
+        ? order.creation_date.split("T")[0]
+        : order.creation_date
+      ],
       delivery_address: [ order.delivery_address || '' ],
       paid_out: [ order.paid_out ],
       status: [ order.status ]

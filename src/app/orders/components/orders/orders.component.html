@@ -36,17 +36,17 @@
           </thead> 
           <tbody >
               <tr [(ngModel)]="orders" ngDefaultControl *ngFor="let order of orders">
-                    <td class="list-group">
+                    <td class="list-group align-middle">
                       <a class="list-group-item list-group-item-action"
                       [routerLink]="['/admin/orders', order._id]" 
                       >
                           {{ order._id }}
                       </a>  
                     </td>
-                    <td>{{ order.clientName }}</td>
-                    <td>{{ order.status }}</td>
-                    <td>{{ order.paid_out }}</td>
-                    <td>{{ order.creation_date | date }}</td>
+                    <td class="align-middle">{{ order.clientName }}</td>
+                    <td class="align-middle">{{ order.status }}</td>
+                    <td class="align-middle">{{ order.paid_out }}</td>
+                    <td class="align-middle">{{ order.creation_date | date }}</td>
               </tr>
           </tbody>
       </table>

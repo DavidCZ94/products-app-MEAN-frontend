@@ -5,6 +5,7 @@ import Bootstrap from 'bootstrap/dist/js/bootstrap';
 
 import { UsersService } from '../../../core/services/users/users.service';
 import { User } from 'src/app/core/models/user.model';
+import { MyValidators } from 'src/app/utils/validators';
 
 @Component({
   selector: 'app-create-user',
@@ -15,12 +16,10 @@ export class CreateUserComponent implements OnInit {
 
   user: User;
   form: FormGroup;
+  defaultPasword = '12345678';
 
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
-
-  @ViewChild('passwordInput') passwordInput: ElementRef; 
-  @ViewChild('showPasswordCheck') showPasswordCheck: ElementRef; 
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,13 +37,12 @@ export class CreateUserComponent implements OnInit {
     const defaultBirthDate = new Date();
     defaultBirthDate.setFullYear(defaultBirthDate.getUTCFullYear() -18);
     this.form = this.formBuilder.group({
-      name: ['David Alberto Cabrera', [Validators.required]],
-      email: ['david@davi.com', [Validators.required]],
-      phone: ['3333333333', [Validators.required]],
-      deliveryAddress: ['calle Falsa 123'],
+      name: [ ,[Validators.required]],
+      email: [ , [Validators.required, Validators.email]],
+      phone: [ , [Validators.required]],
+      deliveryAddress: [  ],
       birthDate: [defaultBirthDate.toISOString().split('T')[0], [Validators.required]],
-      documentNumber: ['9999999999', [Validators.required]],
-      password: ['12345678', [Validators.required]],
+      documentNumber: [ , [Validators.required]],
       isAdmin: [false, [Validators.required]],
     })
   }
@@ -83,14 +81,6 @@ export class CreateUserComponent implements OnInit {
 
   redirectToUsersTable(){
     this.router.navigate(['admin/users']);
-  }
-
-  showPassword(){
-    if( this.showPasswordCheck.nativeElement.checked === true){
-      this.renderer.setAttribute(this.passwordInput.nativeElement, "type", "text");
-    }else{
-      this.renderer.setAttribute(this.passwordInput.nativeElement, "type", "password");
-    }
   }
 
 }
