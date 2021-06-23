@@ -65,7 +65,8 @@ export class ProductDetailComponent implements OnInit {
       position: product.position,
       sale_price: product.sale_price,
       cost_price: product.cost_price,
-      tags: product.tags
+      tags: product.tags,
+      isActive: product.isActive
     };
     this.productService.updateProduct(productUpdate, product._id)
     .subscribe(
@@ -82,7 +83,7 @@ export class ProductDetailComponent implements OnInit {
       });
   }
 
-  deleteProduct(id: string){
+/*   deleteProduct(id: string){
     this.productService.deleteProduct(id)
     .subscribe(
       (res) => {
@@ -91,7 +92,7 @@ export class ProductDetailComponent implements OnInit {
       (err) => {
         console.log(err);
       });
-  }
+  } */
 
   goToProductsTable(){
     this.router.navigate(['admin/products']);
@@ -110,6 +111,7 @@ export class ProductDetailComponent implements OnInit {
       sale_price: [ this.product.sale_price, [Validators.required]],
       cost_price: [ this.product.cost_price, [Validators.required]],
       tags: [ this.product.tags ],
+      isActive: [ this.product.isActive ]
     });
   }
 
@@ -127,6 +129,7 @@ export class ProductDetailComponent implements OnInit {
         'position' : this.form.value.position,
         'sale_price' : this.form.value.sale_price,
         'cost_price' : this.form.value.cost_price,
+        'isActive': this.form.value.isActive
       };
       if (Array.isArray(this.form.value.tags)){
         this.product.tags = this.form.value.tags;

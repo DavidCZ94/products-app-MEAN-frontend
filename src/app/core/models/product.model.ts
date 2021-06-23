@@ -13,4 +13,5 @@ export interface Product {
     cost_price: number
     tags?: string[],
     productPictures?: string[]
+    isActive: boolean
 }

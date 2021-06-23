@@ -52,6 +52,7 @@ export class CreateProductComponent implements OnInit {
       sale_price: ['', [Validators.required]],
       cost_price: ['', [Validators.required]],
       tags: [''],
+      isActive: [true]
     })
   }
 
@@ -69,7 +70,8 @@ export class CreateProductComponent implements OnInit {
         'sale_price' : this.form.value.sale_price, 
         'cost_price' : this.form.value.cost_price,
         'tags' : this.form.value.tags.split(','),
-        'productPictures': []
+        'productPictures': [],
+        'isActive': this.form.value.isActive
       };
       this.addPicturesUrl(this.files);
     }

@@ -31,6 +31,7 @@
           <th class="align-middle">Brand</th>
           <th class="align-middle">Price</th>
           <th class="align-middle">Stock</th>
+          <th class="align-middle">Is Active</th>
         </tr>
       </thead>
       <tbody>
@@ -50,6 +51,9 @@
           <td class="align-middle">{{ product.brand }}</td>
           <td class="align-middle">{{ product.sale_price | currency }}</td>
           <td class="align-middle">{{ product.stock }}</td>
+          <td class="align-middle">
+            <span class="badge" [ngClass]="{'bg-success': product.isActive,'bg-danger': !product.isActive}">{{ product.isActive }}</span>
+          </td>
         </tr>
       </tbody>
     </table>
