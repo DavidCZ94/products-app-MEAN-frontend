@@ -47,14 +47,18 @@ export class SingUpComponent implements OnInit {
           Validators.minLength(6),
           MyValidators.validPassword,
         ],
-      ],
+      ]
     });
   }
 
   saveUser(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
-      this.user = this.form.value;
+      this.user = {
+        ...this.form.value,
+        isAdmin: true
+      };
+      console.log(this.user);
       delete this.user['passwordConfirmation'];
       this.singUp(this.user);
     } else {
