@@ -88,7 +88,6 @@
                 <th>Product</th>
                 <th>Price</th>
                 <th>Qty</th>
-                <th>Stock</th>
                 <th>Total</th>
                 <th *ngIf="newOrder">Actions</th>
               </tr>
@@ -106,7 +105,6 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.sale_price | currency }}</td>
                 <td>{{ product.qty }}</td>
-                <td>{{ product.stock }}</td>
                 <td>{{ product.sale_price * product.qty | currency }}</td>
                 <td *ngIf="newOrder">
                   <div class="btn-group" role="group">
@@ -120,9 +118,7 @@
                 </td>
               </tr>
               <tr  class="text-center align-middle">
-                <td></td>
-                <td></td>
-                <td colspan="3" class="table-active">Total:</td>
+                <td colspan="4" class="table-active">Total:</td>
                 <td>{{amount$ | async | currency}}</td>
                 <td></td>
               </tr>
