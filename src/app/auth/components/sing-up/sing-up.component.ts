@@ -58,7 +58,6 @@ export class SingUpComponent implements OnInit {
         ...this.form.value,
         isAdmin: true
       };
-      console.log(this.user);
       delete this.user['passwordConfirmation'];
       this.singUp(this.user);
     } else {

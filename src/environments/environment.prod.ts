@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiUrl:'http://localhost:8000',
-  cloudinaryUploadPreset: 'elysian_products_pictures',
+  apiUrl:'https://products-app-mean-proxy-server.herokuapp.com',
+  cloudinaryUploadPreset: 'products-app-MEAN',
   cloudinaryCloudName: 'dfm3qqywb',
   cloudinaryApi: 'https://api.cloudinary.com/v1_1/'
 };
