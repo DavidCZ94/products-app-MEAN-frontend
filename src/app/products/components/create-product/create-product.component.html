@@ -8,82 +8,96 @@
         <!-- Form -->
         <form [formGroup]="form" (ngSubmit)="formAction($event)">
           <!-- name -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               formControlName="name"
               type="text"
               name="name"
               class="form-control"
               placeholder="Name"
+              id="name"
               autofocus
               required
             />
+            <label for="name">Name *</label>
           </div>
           <!-- sku -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               formControlName="sku"
               type="text"
               name="sku"
               class="form-control"
               placeholder="sku"
+              id="sku"
               autofocus
             />
+            <label for="sku">Sku *</label>
           </div>
           <!-- Brand -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               formControlName="brand"
               type="text"
               name="brand"
               class="form-control"
               placeholder="Brand"
+              id="brand"
               required
             />
+            <label for="brand">Brand *</label>
           </div>
           <!-- Class -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               formControlName="class"
               type="text"
               name="class"
               class="form-control"
               placeholder="Class"
+              id="class"
               required
             />
+            <label for="class">Class *</label>
           </div>
           <!-- distributor -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               formControlName="distributor"
               type="text"
               name="distributor"
               class="form-control"
               placeholder="Distributor"
+              id="distributor"
               required
             />
+            <label for="distributor">Distributor *</label>
           </div>
           <!-- Stock -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               formControlName="stock"
               type="number"
               name="stock"
               class="form-control"
               placeholder="Stock"
+              id="stock"
               required
             />
+            <label for="stock">Stock *</label>
           </div>
           <!-- Position -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               formControlName="position"
               type="text"
               name="position"
               class="form-control"
               placeholder="Position"
+              id="position"
               required
             />
+            <label for="position">Position *</label>
           </div>
           <!-- Sale Price -->
           <div class="form-group my-2 input-group mb-3">
@@ -93,7 +107,7 @@
               type="number"
               name="sale_price"
               class="form-control"
-              placeholder="Sale Price"
+              placeholder="Sale Price *"
               required
             />
           </div>
@@ -105,19 +119,21 @@
               type="number"
               name="cost_price"
               class="form-control"
-              placeholder="Cost Price"
+              placeholder="Cost Price *"
               required
             />
           </div>
           <!-- Tags -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3">
             <input
               formControlName="tags"
               type="text"
               name="tags"
               class="form-control"
               placeholder="Tags"
+              id="tags"
             />
+            <label for="tags">Tags *</label>
           </div>
           <!-- Is Active input -->
           <div class="form-group form-check form-switch my-2">

@@ -26,7 +26,7 @@
           />
         </div>
         <!-- creation_date -->
-        <div class="input-group mb-3">
+        <div *ngIf="!newOrder" class="input-group mb-3">
           <span class="input-group-text" id="basic-addon3">Creation date</span>
           <input
             formControlName="creation_date"

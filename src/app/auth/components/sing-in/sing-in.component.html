@@ -7,19 +7,21 @@
       </div>
       <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="formAction($event)">
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               formControlName="email"
               type="text"
               name="email"
               class="form-control"
               placeholder="Email"
+              if="email"
               autofocus
               required
             />
+            <label for="email">Email address</label>
           </div>
           <!-- Password input -->
-          <div class="form-group my-2">
+          <div class="form-floating mb-3 my-2">
             <input
               #passwordInput 
               formControlName="password"
@@ -27,8 +29,10 @@
               name="password"
               class="form-control"
               placeholder="Password"
+              id="password"
               required
             />
+            <label for="password">Email address</label>
           </div>
           <!-- Show Password check -->
           <div class="form-group form-check form-switch my-2" (click)="showPassword()">
@@ -73,13 +77,13 @@
       </div>
     </div>
     <!-- Instructions card -->
-    <div class="card text-center">
+    <div class="card text-center text-white bg-success">
       <div class="card-header">
         
       </div>
       <div class="card-body">
-        <h5 class="card-title">Please read this before using the Products app and press Sign-in button.</h5>
-        <p class="card-text">Fill the form with the next data.</p>
+        <h5 class="card-title">Please read this before using the Products app.</h5>
+        <p class="card-text">Fill the form with the next data and press Sign-in button.</p>
       </div>
       <div class="card-footer text-muted">
         <ol class="list-group list-group-numbered">

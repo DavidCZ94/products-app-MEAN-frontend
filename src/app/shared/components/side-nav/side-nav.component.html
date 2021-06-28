@@ -12,16 +12,17 @@
     
     <hr class="my-0">
     <div class="my-3">
-      <a routerLink="/admin/home" routerLinkActive="active">Home</a>
-      <a routerLink="/admin/orders/orders-table" routerLinkActive="active">Orders</a>
-      <a routerLink="/admin/products" routerLinkActive="active" >Products</a> 
-      <a routerLink="/admin/users" routerLinkActive="active">Users</a>
+      <a class="sidenavButton" routerLink="/admin/home" routerLinkActive="active">Home</a>
+      <a class="sidenavButton"  routerLink="/admin/orders/orders-table" routerLinkActive="active">Orders</a>
+      <a class="sidenavButton"  routerLink="/admin/products" routerLinkActive="active" >Products</a> 
+      <a class="sidenavButton"  routerLink="/admin/users" routerLinkActive="active">Users</a>
     </div>
   </div>
-  <div class="container">
+  <div class="container sidenavButton">
     <button (click)="logOut(sideNav, main)" class="btn btn-outline-secondary w-25">
       <fa-icon [icon]="faSignOutAlt"></fa-icon>
     </button>
+    Log-out
   </div>
 </div>
 

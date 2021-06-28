@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faShoppingCart, faDollyFlatbed, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faDollyFlatbed, faUsers, faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +10,8 @@ export class HomeComponent implements OnInit {
 
   /* Icons */
 
-  faShoppingCart = faShoppingCart;
   faDollyFlatbed = faDollyFlatbed;
+  faBoxOpen = faBoxOpen;
   faUsers = faUsers;
 
   constructor() { }

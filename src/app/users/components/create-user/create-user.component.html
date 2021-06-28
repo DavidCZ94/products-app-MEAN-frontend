@@ -8,19 +8,21 @@
           <!-- Form -->
           <form [formGroup]="form" (ngSubmit)="formAction($event)">
             <!-- name -->
-            <div class="form-group my-2">
+            <div class="form-floating mb-3 my-2">
               <input
                 formControlName="name"
                 type="text"
                 name="name"
                 class="form-control"
                 placeholder="Name"
+                id="name"
                 autofocus
                 required
               />
+              <label for="name">Name *</label>
             </div>
             <!-- email -->
-            <div class="form-group my-2">
+            <div class="form-floating mb-3 form-group my-2">
               <input
                 [class.is-invalid]="form.controls.email.invalid"
                 formControlName="email"
@@ -28,30 +30,36 @@
                 name="email"
                 class="form-control"
                 placeholder="Email"
+                id="email"
                 required
               />
+              <label for="email">Email *</label>
             </div>
             <!-- phone -->
-            <div class="form-group my-2">
+            <div class="form-floating mb-3 my-2">
               <input
                 formControlName="phone"
                 type="text"
                 name="phone"
                 class="form-control"
                 placeholder="Phone"
+                id="phone"
                 required
               />
+              <label for="phone">Phone *</label>
             </div>
             <!-- deliveryAddress -->
-            <div class="form-group my-2">
+            <div class="form-floating mb-3 my-2">
               <input
                 formControlName="deliveryAddress"
                 type="text"
                 name="deliveryAddress"
                 class="form-control"
                 placeholder="DeliveryAddress"
+                id="deliveryAddress"
                 required
               />
+              <label for="deliveryAddress">Delivery Address *</label>
             </div>
             <!-- birthDate -->
             <div class="form-group my-2">
@@ -65,15 +73,17 @@
               />
             </div>
             <!-- documentNumber -->
-            <div class="form-group my-2">
+            <div class="form-floating mb-3 my-2">
               <input
                 formControlName="documentNumber"
                 type="text"
                 name="documentNumber"
                 class="form-control"
                 placeholder="Document Number"
+                id="documentNumber"
                 required
               />
+              <label for="documentNumber">Document Number *</label>
             </div>
 
             <button
