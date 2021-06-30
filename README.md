@@ -1,4 +1,4 @@
-# ElysianFrontend
+# Products app MEAN Frontend
 
 This repository is part of an application created with MEAN stack , this is the front end. You can see the other parts of the complete project in the next links [proxy server](https://github.com/DavidCZ94/products-app-mean-proxy-server) and [API server](https://github.com/DavidCZ94/products-app-MEAN-api-server) . 
 
