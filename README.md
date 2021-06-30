@@ -1,6 +1,6 @@
 # ElysianFrontend
 
-This repository is part of an application created with MEAN stack technologies, this is the front end. You can see the other parts of the complete project in the next links [proxy server](https://github.com/DavidCZ94/products-app-mean-proxy-server) and [API server](https://github.com/DavidCZ94/products-app-MEAN-api-server) . 
+This repository is part of an application created with MEAN stack , this is the front end. You can see the other parts of the complete project in the next links [proxy server](https://github.com/DavidCZ94/products-app-mean-proxy-server) and [API server](https://github.com/DavidCZ94/products-app-MEAN-api-server) . 
 
 This project has been created with educational purposes and the objective is to achieve a complete web application using technologies based on JavaScript such as Mongodb, expressJs, Angular and nodeJs ( MEAN ). 
 
