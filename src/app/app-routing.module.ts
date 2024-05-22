@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './auth.guard';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-  }, 
+  },
   {
     path: '**',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
