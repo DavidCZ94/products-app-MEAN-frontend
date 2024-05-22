@@ -137,12 +137,12 @@
           </div>
           <!-- Is Active input -->
           <div class="form-group form-check form-switch my-2">
-            <input 
-              formControlName="isActive" 
-              type="checkbox" 
+            <input
+              formControlName="isActive"
+              type="checkbox"
               name="isActive"
-              class="form-check-input" 
-              value="true" 
+              class="form-check-input"
+              value="true"
               id="isActive">
             <label class="form-check-label" for="isActive">
               Is active
@@ -161,7 +161,7 @@
                 ngProjectAs="ngx-dropzone-preview"
                 *ngFor="let f of files"
                 [file]="f"
-                [removable]="true" 
+                [removable]="true"
                 (removed)="onRemove(f)"
               >
                 <ngx-dropzone-label

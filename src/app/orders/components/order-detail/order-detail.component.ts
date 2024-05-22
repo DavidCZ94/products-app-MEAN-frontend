@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Form, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 import { faTrashAlt, faSave, faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
@@ -191,10 +191,8 @@ export class OrderDetailComponent implements OnInit {
 
   goBack(){
     if ( this.newOrder ){
-      console.log('New Order');
       this.goToClientSelection();
     }else {
-      console.log('Old order');
       this.goToOrdersTable();
     }
   }
