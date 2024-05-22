@@ -32,7 +32,7 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductsService,
     private router: Router
   ) {
-   }
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -111,7 +111,7 @@ export class ProductDetailComponent implements OnInit {
       sale_price: [ this.product.sale_price, [Validators.required]],
       cost_price: [ this.product.cost_price, [Validators.required]],
       tags: [ this.product.tags ],
-      isActive: [ this.product.isActive ]
+      isActive: [ this.product.isActive || false ]
     });
   }
 

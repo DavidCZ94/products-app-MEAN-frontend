@@ -67,7 +67,7 @@ export class CreateProductComponent implements OnInit {
         'distributor' : this.form.value.distributor,
         'stock' : this.form.value.stock,
         'position' : this.form.value.position,
-        'sale_price' : this.form.value.sale_price, 
+        'sale_price' : this.form.value.sale_price,
         'cost_price' : this.form.value.cost_price,
         'tags' : this.form.value.tags.split(','),
         'productPictures': [],
@@ -127,7 +127,7 @@ export class CreateProductComponent implements OnInit {
     //console.log(event);
     this.files.push(...event.addedFiles);
   }
-  
+
   onRemove(event) {
     //console.log(event);
     this.files.splice(this.files.indexOf(event), 1);

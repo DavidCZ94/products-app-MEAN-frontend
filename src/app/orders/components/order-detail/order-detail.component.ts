@@ -51,7 +51,7 @@ export class OrderDetailComponent implements OnInit {
     this.amount$ = this.shoppingCartService.amount$;
     this.route.params.subscribe((params: Params) => {
       this.orderId = params.id;
-    }); 
+    });
     if ( this.orderId === 'undefined' ) {
       this.order = this.ordersService.getActualOrder();
       this.disabledDeleteOrder = true;
@@ -73,7 +73,7 @@ export class OrderDetailComponent implements OnInit {
         this.shoppingCartService.calcTotalAmount(this.order.shopping_cart);
         this.buildForm(this.order);
         this.getClient(this.order.clientId);
-      }, 
+      },
       (err) => {
         console.log(err);
       }
@@ -83,7 +83,7 @@ export class OrderDetailComponent implements OnInit {
   getClient( userId: string ){
     this.userService.getUser(userId)
       .subscribe(
-        (res) => { 
+        (res) => {
           this.client = res.data;
         },
         (err) => {
@@ -172,7 +172,7 @@ export class OrderDetailComponent implements OnInit {
     this.form = this.formBuilder.group({
       _id: [ order._id ],
       client: [ order.clientName ],
-      creation_date: [ 
+      creation_date: [
         this.newOrder === false
         ? order.creation_date.split("T")[0]
         : order.creation_date

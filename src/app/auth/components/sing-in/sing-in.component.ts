@@ -19,8 +19,8 @@ export class SingInComponent implements OnInit {
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
 
-  @ViewChild('passwordInput') passwordInput: ElementRef; 
-  @ViewChild('showPasswordCheck') showPasswordCheck: ElementRef; 
+  @ViewChild('passwordInput') passwordInput: ElementRef;
+  @ViewChild('showPasswordCheck') showPasswordCheck: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,7 +28,7 @@ export class SingInComponent implements OnInit {
     private router: Router,
     private renderer: Renderer2,
     private usersService: UsersService
-    ) 
+    )
     {
       if( JSON.parse(localStorage.getItem('currentUser')) !== null ){
         this.validateToken();
@@ -39,7 +39,7 @@ export class SingInComponent implements OnInit {
     }
 
   ngOnInit(): void {}
-    
+
   private buildForm(){
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -48,27 +48,27 @@ export class SingInComponent implements OnInit {
     })
   }
 
-validateToken(){
-  this.usersService.getUser(this.authService.currentUserValue['user'].id)
-    .subscribe(
-      () => {
-        this.redirectToAdminHome();
-      },
-      () => { 
-        this.logOut();
-      }
-    )
-}
+  validateToken(){
+    this.usersService.getUser(this.authService.currentUserValue['user'].id)
+      .subscribe(
+        () => {
+          this.redirectToAdminHome();
+        },
+        () => {
+          this.logOut();
+        }
+      )
+  }
 
   formAction(event: Event){
     event.preventDefault();
     if(this.form.valid){
       if (this.form.value.rememberMe === null) {
         this.form.value.rememberMe = false ;
-      } 
-      
+      }
+
       this.user = this.form.value;
-      
+
       this.singIn(this.user);
     }else{
       alert('Please fill out the form with valid information.');
@@ -103,7 +103,7 @@ validateToken(){
       'data-bs-focus': true,
     });
     this.modalDirect.show();
-    
+
   }
 
   redirectToAdminHome(){
@@ -131,5 +131,5 @@ validateToken(){
     this.authService.logout();
     this.redirectToSignIn();
   }
-  
+
 }

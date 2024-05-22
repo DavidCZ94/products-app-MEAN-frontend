@@ -59,11 +59,8 @@ export class ProductsComponent implements OnInit {
     this.productsService.getProducts(filter).subscribe(
       (res) => {
         this.products = res.data;
-        if(res.data.length < this.nPerPage ){
-         this.isThereMoreData = false;
-        }else{
-          this.isThereMoreData = true;
-        }
+        if(res.data.length < this.nPerPage ) this.isThereMoreData = false;
+        else this.isThereMoreData = true;
       },
       (err) => {
         alert('An error occurred connecting to the database.');
