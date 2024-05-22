@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 import { faTrashAlt, faSave, faPlus, faMinus} from '@fortawesome/free-solid-svg-icons';
@@ -28,7 +28,7 @@ export class OrderDetailComponent implements OnInit {
   order: Order;
   newOrder: boolean;
   orderId: string;
-  form: FormGroup;
+  form: UntypedFormGroup;
   client: User;
   disabledDeleteOrder: boolean;
   amount$: Observable<number>;
@@ -39,7 +39,7 @@ export class OrderDetailComponent implements OnInit {
   @ViewChild('deleteButton', { static: false }) deleteButton: ElementRef;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private ordersService: OrdersService,

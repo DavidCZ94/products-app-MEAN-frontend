@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild,  Renderer2, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 
@@ -15,14 +15,14 @@ import { MyValidators } from 'src/app/utils/validators';
 export class CreateUserComponent implements OnInit {
 
   user: User;
-  form: FormGroup;
+  form: UntypedFormGroup;
   defaultPasword = '12345678';
 
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private userSerivce: UsersService,
     private renderer: Renderer2

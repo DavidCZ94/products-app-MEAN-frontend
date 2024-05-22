@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 import { faTrashAlt, faSave} from '@fortawesome/free-solid-svg-icons';
@@ -21,13 +21,13 @@ export class UserDetailComponent implements OnInit {
 
   user: User;
   userId: string;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private usersService: UsersService,
     private router: Router

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 import { faTrashAlt, faSave} from '@fortawesome/free-solid-svg-icons';
 
@@ -21,13 +21,13 @@ export class ProductDetailComponent implements OnInit {
   faSave = faSave;
 
   product: Product;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private productService: ProductsService,
     private router: Router

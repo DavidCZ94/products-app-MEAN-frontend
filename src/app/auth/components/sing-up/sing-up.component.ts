@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 
@@ -14,12 +14,12 @@ import { MyValidators } from '../../../utils/validators';
 })
 export class SingUpComponent implements OnInit {
   user: User;
-  form: FormGroup;
+  form: UntypedFormGroup;
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router
   ) {

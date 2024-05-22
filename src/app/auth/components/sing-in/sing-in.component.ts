@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild , Renderer2, ElementRef} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 import { UsersService } from 'src/app/core/services/users/users.service';
@@ -14,7 +14,7 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 })
 export class SingInComponent implements OnInit {
   user: User;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   modalDirect: Bootstrap.Modal;
   @ViewChild('confirmationModal') input;
@@ -23,7 +23,7 @@ export class SingInComponent implements OnInit {
   @ViewChild('showPasswordCheck') showPasswordCheck: ElementRef;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
     private renderer: Renderer2,

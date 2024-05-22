@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +20,7 @@ export class CreateProductComponent implements OnInit {
   faCloudUploadAlt = faCloudUploadAlt;
 
   product: Product;
-  form: FormGroup;
+  form: UntypedFormGroup;
   file: File;
   files: File[] = [];
   imageSelected: string | ArrayBuffer;
@@ -29,7 +29,7 @@ export class CreateProductComponent implements OnInit {
   @ViewChild('confirmationModal') input;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private productsService: ProductsService,
     private uploadImagesService: UploadImagesService
